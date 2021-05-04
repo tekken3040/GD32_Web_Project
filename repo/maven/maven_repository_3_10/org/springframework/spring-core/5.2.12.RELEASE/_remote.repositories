@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Apr 09 15:16:21 KST 2021
+spring-core-5.2.12.RELEASE-sources.jar>central=
+spring-core-5.2.12.RELEASE.jar>central=
+spring-core-5.2.12.RELEASE.pom>central=
