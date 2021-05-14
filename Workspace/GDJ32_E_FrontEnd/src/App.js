@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import customAxios from './customAxios'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from "react-bootstrap";
 
 function App()
 {
@@ -26,6 +28,7 @@ function App()
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         IP Address is {ip}.
+        <Button>Boot strap</Button>
       </header>
     </div>
   );
