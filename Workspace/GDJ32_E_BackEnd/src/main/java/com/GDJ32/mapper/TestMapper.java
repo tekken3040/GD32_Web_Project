@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public interface TestMapper {
+public interface TestMapper {	// 매퍼 인터페이스
 	List<TestVo> selectTest();
 }

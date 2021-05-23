@@ -14,7 +14,7 @@ public class TestService {
 	@Autowired
 	public TestMapper mapper;
 	
-	public List<TestVo> selectTest()
+	public List<TestVo> selectTest()	//	받아온 db데이터를 리스트로 반환
 	{
 		return mapper.selectTest();
 	}
