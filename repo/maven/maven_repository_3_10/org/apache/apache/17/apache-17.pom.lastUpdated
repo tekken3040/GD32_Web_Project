@@ -1,5 +1,5 @@
-#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Fri Feb 01 11:40:36 KST 2019
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon May 24 11:50:41 KST 2021
+https\://repo.maven.apache.org/maven2/.lastUpdated=1621824641425
 http\://dl.bintray.com/spark-packages/maven/.lastUpdated=1548988836467
 http\://dl.bintray.com/spark-packages/maven/.error=
-https\://repo.maven.apache.org/maven2/.lastUpdated=1548988836761

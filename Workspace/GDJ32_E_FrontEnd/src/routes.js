@@ -20,6 +20,7 @@ const routes = [
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
+      { path: 'newpage', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
