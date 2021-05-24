@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Apr 23 09:43:44 KST 2021
+commons-dbcp2-2.8.0.jar>central=
+commons-dbcp2-2.8.0-sources.jar>central=
+commons-dbcp2-2.8.0.pom>central=

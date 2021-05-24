@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Apr 07 17:34:53 KST 2021
+javax.servlet.jsp-api-2.3.0-sources.jar>central=
+javax.servlet.jsp-api-2.3.0.pom>central=
+javax.servlet.jsp-api-2.3.0.jar>central=
