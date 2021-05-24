@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Wed Apr 07 17:21:40 KST 2021
-commons-logging-1.1.1-sources.jar>mvn2s=
-commons-logging-1.1.1.pom>central=
-commons-logging-1.1.1.pom>mvn2s=
-commons-logging-1.1.1.jar>mvn2s=
