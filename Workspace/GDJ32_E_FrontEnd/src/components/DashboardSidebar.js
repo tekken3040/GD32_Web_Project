@@ -26,7 +26,7 @@ import NavItem from './NavItem';
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  name: 'Katarina Smith',
 };
 
 const items = [
@@ -66,9 +66,9 @@ const items = [
     title: 'Register'
   },
   {
-    href: '/app/newpage',
+    href: '/app/Newpage',
     icon: AlertCircleIcon,
-    title: 'newpage'
+    title: 'Newpage'
   },
   {
     href: '/404',
@@ -102,28 +102,62 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 2
         }}
       >
-        <Avatar
-          component={RouterLink}
-          src={user.avatar}
+        <Box
           sx={{
-            cursor: 'pointer',
-            width: 64,
-            height: 64
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            p: 2
           }}
-          to="/app/account"
-        />
-        <Typography
-          color="textPrimary"
-          variant="h5"
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
+          <Avatar
+            component={RouterLink}
+            src={user.avatar}
+            sx={{
+              cursor: 'pointer',
+              width: 64,
+              height: 64
+            }}
+            to="/app/account"
+          />
+          <Typography
+            color="textPrimary"
+            variant="h5"
+          >
+            {user.name}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            {user.jobTitle}
+          </Typography>
+        </Box>
+        <Divider />
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            p: 2
+          }}
         >
-          {user.jobTitle}
-        </Typography>
+          <Button
+            color="primary"
+            variant="contained"
+            sx={{
+              m: 2
+            }}
+          >
+            출근
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+          >
+            퇴근
+          </Button>
+        </Box>
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
