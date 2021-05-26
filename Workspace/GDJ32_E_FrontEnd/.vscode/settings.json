@@ -1,0 +1,8 @@
+ {
+"files.eol":"\r\n", 
+"prettier.endOfLine":"crlf", 
+//prettier-eslint 연동
+"editor.formatOnSave": true,
+"javascript.format.enable": false,
+"prettier.eslintIntegration": true,
+}
