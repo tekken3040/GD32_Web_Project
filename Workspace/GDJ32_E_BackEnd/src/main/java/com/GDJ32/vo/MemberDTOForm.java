@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MemberDTOForm {
+    private Integer index;
     private String id;
 	private String password;
 	private String name;
@@ -20,8 +21,9 @@ public class MemberDTOForm {
     private String birthday;
 
     @Builder
-    public MemberDTOForm(String id, String password, String name, String zipcode, String address, String address_detail,
+    public MemberDTOForm(Integer index, String id, String password, String name, String zipcode, String address, String address_detail,
             String phone, String email, String birthday) {
+        this.index = index;
         this.id = id;
         this.password = password;
         this.name = name;
@@ -35,6 +37,7 @@ public class MemberDTOForm {
 
     public MemberDTO toEntity() {
         return MemberDTO.builder()
+        .index(index)
         .id(id)
         .password(new BCryptPasswordEncoder().encode(password))
         .name(name)

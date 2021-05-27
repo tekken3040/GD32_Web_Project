@@ -11,17 +11,23 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "gdj_member")
 @DynamicInsert
 @DynamicUpdate
+@Data
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class MemberDTO {
+    //#region Values
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer index;
 	
     @Id
@@ -51,7 +57,9 @@ public class MemberDTO {
     
     @Column(name = "birthday")
     private String birthday;
+    //#endregion
 
+    //#region Getter, Setter
     /**
      * @return Integer return the index
      */
@@ -191,19 +199,5 @@ public class MemberDTO {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
-
-    @Builder
-    public MemberDTO(Integer index, String id, String password, String name, String zipcode, String address, String address_detail,
-            String phone, String email, String birthday) {
-        this.index = index;
-        this.id = id;
-        this.password = password;
-        this.name = name;
-        this.zipcode = zipcode;
-        this.address = address;
-        this.address_detail = address_detail;
-        this.phone = phone;
-        this.email = email;
-        this.birthday = birthday;
-    }
+    //#endregion
 }

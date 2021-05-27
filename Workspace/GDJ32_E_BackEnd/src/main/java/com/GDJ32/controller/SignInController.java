@@ -1,9 +1,14 @@
 package com.GDJ32.controller;
 
 import com.GDJ32.service.SignInService;
+import com.GDJ32.vo.MemberDTOForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,5 +19,19 @@ public class SignInController {
     @Autowired
     private SignInService signInService;
 
-    
+    @GetMapping("/login")
+    public String createUserForm(Model model) {
+        model.addAttribute("userForm", new MemberDTOForm());
+        return "user/login/register";
+    }
+
+    public String createUser(@Validated MemberDTOForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/login/register";
+        }
+
+        signInService.createMember(form);
+
+        return "redirect:/";
+    }
 }
