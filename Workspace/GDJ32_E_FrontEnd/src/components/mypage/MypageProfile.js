@@ -19,7 +19,7 @@ const user = {
   timezone: 'GTM-7'
 };
 
-const AccountProfile = (props) => (
+const MypageProfile = (props) => (
   <Card {...props}>
     <CardContent>
       <Box
@@ -32,8 +32,8 @@ const AccountProfile = (props) => (
         <Avatar
           src={user.avatar}
           sx={{
-            height: 100,
-            width: 100
+            height: 150,
+            width: 150
           }}
         />
         <Typography
@@ -70,4 +70,4 @@ const AccountProfile = (props) => (
   </Card>
 );
 
-export default AccountProfile;
+export default MypageProfile;

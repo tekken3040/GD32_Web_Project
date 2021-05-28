@@ -4,13 +4,13 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import AccountProfile from 'src/components/account/AccountProfile';
-import AccountProfileDetails from 'src/components/account/AccountProfileDetails';
+import MypageProfile from 'src/components/mypage/MypageProfile';
+import MypageProfileDetails from 'src/components/mypage/MypageProfileDetails';
 
-const Account = () => (
+const Mypage = () => (
   <>
     <Helmet>
-      <title>Account | Material Kit</title>
+      <title>마이페이지</title>
     </Helmet>
     <Box
       sx={{
@@ -30,7 +30,7 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfile />
+            <MypageProfile />
           </Grid>
           <Grid
             item
@@ -38,7 +38,7 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfileDetails />
+            <MypageProfileDetails />
           </Grid>
         </Grid>
       </Container>
@@ -46,4 +46,4 @@ const Account = () => (
   </>
 );
 
-export default Account;
+export default Mypage;

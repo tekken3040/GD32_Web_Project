@@ -10,9 +10,9 @@ import {
   colors
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+// import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-const Sales = (props) => {
+const Materialroom = (props) => {
   const theme = useTheme();
 
   const data = {
@@ -95,10 +95,10 @@ const Sales = (props) => {
             size="small"
             variant="text"
           >
-            Last 7 days
+            더보기
           </Button>
         )}
-        title="Latest Sales"
+        title="자료실"
       />
       <Divider />
       <CardContent>
@@ -122,17 +122,17 @@ const Sales = (props) => {
           p: 2
         }}
       >
-        <Button
+        {/* <Button
           color="primary"
           endIcon={<ArrowRightIcon />}
           size="small"
           variant="text"
         >
           Overview
-        </Button>
+        </Button> */}
       </Box>
     </Card>
   );
 };
 
-export default Sales;
+export default Materialroom;

@@ -1,14 +1,14 @@
 import {
-  Avatar,
+  // Avatar,
   Card,
   CardContent,
   Grid,
   Typography
 } from '@material-ui/core';
-import { indigo } from '@material-ui/core/colors';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+// import { indigo } from '@material-ui/core/colors';
+// import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-const TotalProfit = (props) => (
+const Notice = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -22,29 +22,18 @@ const TotalProfit = (props) => (
             gutterBottom
             variant="h6"
           >
-            TOTAL PROFIT
+            공지사항
           </Typography>
           <Typography
             color="textPrimary"
-            variant="h3"
+            variant="p"
           >
-            $23,200
+            공지사항입니다공지사항입니다공지사항입니다
           </Typography>
-        </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: indigo[600],
-              height: 56,
-              width: 56
-            }}
-          >
-            <AttachMoneyIcon />
-          </Avatar>
         </Grid>
       </Grid>
     </CardContent>
   </Card>
 );
 
-export default TotalProfit;
+export default Notice;

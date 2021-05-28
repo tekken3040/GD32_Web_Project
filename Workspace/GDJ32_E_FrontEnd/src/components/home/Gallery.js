@@ -7,13 +7,15 @@ import {
   Divider,
   Typography,
   colors,
-  useTheme
+  useTheme,
+  Button
 } from '@material-ui/core';
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PhoneIcon from '@material-ui/icons/Phone';
 import TabletIcon from '@material-ui/icons/Tablet';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-const TrafficByDevice = (props) => {
+const Gallery = (props) => {
   const theme = useTheme();
 
   const data = {
@@ -78,7 +80,7 @@ const TrafficByDevice = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="포토 게시판 (갤러리) " />
       <Divider />
       <CardContent>
         <Box
@@ -128,10 +130,19 @@ const TrafficByDevice = (props) => {
               </Typography>
             </Box>
           ))}
+
+          <Button
+            color="primary"
+            endIcon={<ArrowRightIcon />}
+            size="small"
+            variant="text"
+          >
+            더보기
+          </Button>
         </Box>
       </CardContent>
     </Card>
   );
 };
 
-export default TrafficByDevice;
+export default Gallery;

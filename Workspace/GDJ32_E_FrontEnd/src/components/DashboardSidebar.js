@@ -9,67 +9,77 @@ import {
   Drawer,
   Hidden,
   List,
-  Typography
+  Typography,
+  IconButton
 } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
+  // AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Lock as LockIcon,
-  Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
+  // Settings as SettingsIcon,
+  // ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  // Users as UsersIcon
 } from 'react-feather';
+import { BiClipboard, BiBriefcaseAlt, BiChalkboard } from 'react-icons/bi';
+import  InputIcon  from '@material-ui/icons/Input';
 import NavItem from './NavItem';
 
 const user = {
+  href: '/app/mypage',
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
   name: 'Katarina Smith'
+
 };
 
 const items = [
   {
-    href: '/app/dashboard',
+    href: '/app/home',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: '홈'
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
+    href: '/app/mypage',
+    icon: UserIcon,
+    title: '마이페이지'
+  },
+  {
+    href: '/app/timemanagement',
+    icon: BiBriefcaseAlt,
+    title: '근태관리'
+  },
+  {
+    href: '/app/board',
+    icon: BiChalkboard,
+    title: '게시판'
   },
   {
     href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
+    icon: BiClipboard,
+    title: '전자결재'
   },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
+  // {
+  //   href: '/app/settings',
+  //   icon: SettingsIcon,
+  //   title: 'Settings'
+  // },
   {
     href: '/login',
     icon: LockIcon,
-    title: 'Login'
+    title: '로그인'
   },
   {
     href: '/register',
     icon: UserPlusIcon,
-    title: 'Register'
+    title: '회원가입'
   },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
+  // {
+  //   href: '/404',
+  //   icon: AlertCircleIcon,
+  //   title: 'Error'
+  // }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
@@ -86,7 +96,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        m : 1
       }}
     >
       <Box
@@ -94,7 +105,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
-          p: 2
+          p: 2,
+          m: 1
         }}
       >
         <Avatar
@@ -105,11 +117,15 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             width: 64,
             height: 64
           }}
-          to="/app/account"
+          to="/app/mypage"
         />
         <Typography
           color="textPrimary"
           variant="h5"
+          sx={{
+            cursor: 'pointer',
+            p : 1
+          }}
         >
           {user.name}
         </Typography>
@@ -119,6 +135,35 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         >
           {user.jobTitle}
         </Typography>
+        <Button
+          sx={{
+            cursor: 'pointer',
+            width: 150,
+            height: 40,
+            m : 2,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+            color="primary"
+            component="a"
+            href="https://react-material-kit.devias.io"
+            variant="contained"
+          >
+            출근
+        </Button>
+        <Button
+          sx={{
+            cursor: 'pointer',
+            width: 150,
+            height: 40
+          }}
+            color="primary"
+            component="a"
+            href="https://react-material-kit.devias.io"
+            variant="contained"
+          >
+            퇴근
+        </Button>
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
@@ -133,28 +178,32 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           ))}
         </List>
       </Box>
-      <Box sx={{ flexGrow: 1 }} />
+      {/* <Box sx={{ flexGrow: 1 }} />  */}
       <Box
-        sx={{
-          backgroundColor: 'background.default',
-          m: 2,
-          p: 2
-        }}
+         sx={{
+          backgroundColor: '#fff',
+          cursor : 'pointer',
+          p: 2,
+          pt : 40,
+         }}
       >
-        <Typography
+        <IconButton >
+            <InputIcon />
+        </IconButton>
+        {/* <Typography
           align="center"
           gutterBottom
           variant="h4"
         >
           Need more?
-        </Typography>
-        <Typography
+        </Typography> */}
+        {/* <Typography
           align="center"
           variant="body2"
         >
           Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
+        </Typography> */}
+        {/* <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -169,7 +218,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           >
             See PRO version
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
@@ -192,7 +241,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </Drawer>
       </Hidden>
       <Hidden lgDown>
-        <Drawer
+       <Drawer
           anchor="left"
           open
           variant="persistent"
