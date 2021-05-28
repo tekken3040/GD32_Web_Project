@@ -26,7 +26,7 @@ public class SignInController {
         return "user/login/register";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/signin")
     public String createUser(@Validated MemberDTOForm form, BindingResult result) {
         if (result.hasErrors()) {
             return "user/login/register";

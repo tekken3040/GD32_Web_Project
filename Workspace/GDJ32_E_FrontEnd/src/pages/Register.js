@@ -72,7 +72,7 @@ const Register = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
-                <Box sx={{ mb: 3 }}>
+                <Box sx={{ mb: 1, mt: 5 }}>
                   <Typography
                     color="textPrimary"
                     variant="h2"
@@ -173,6 +173,7 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
+                  // InputLabelProps={{shrink : true}}
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
@@ -186,6 +187,7 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
+                  InputLabelProps={{shrink : true}}
                   error={Boolean(touched.birthDay && errors.birthDay)}
                   fullWidth
                   helperText={touched.birthDay && errors.birthDay}
