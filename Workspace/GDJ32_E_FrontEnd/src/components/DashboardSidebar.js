@@ -23,7 +23,7 @@ import {
   // Users as UsersIcon
 } from 'react-feather';
 import { BiClipboard, BiBriefcaseAlt, BiChalkboard } from 'react-icons/bi';
-import  InputIcon  from '@material-ui/icons/Input';
+import InputIcon from '@material-ui/icons/Input';
 import NavItem from './NavItem';
 
 const user = {
@@ -97,7 +97,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        m : 1
+        m: 1
       }}
     >
       <Box
@@ -124,7 +124,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           variant="h5"
           sx={{
             cursor: 'pointer',
-            p : 1
+            p: 1
           }}
         >
           {user.name}
@@ -140,7 +140,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             cursor: 'pointer',
             width: 150,
             height: 40,
-            m : 2,
+            m: 2,
             display: 'flex',
             flexDirection: 'column',
           }}
