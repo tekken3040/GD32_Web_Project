@@ -30,7 +30,6 @@ public class MemberDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer index;
 	
-    @Id
 	@Column(name = "id")
 	private String id;
 	

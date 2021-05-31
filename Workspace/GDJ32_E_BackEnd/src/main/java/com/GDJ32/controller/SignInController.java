@@ -26,8 +26,9 @@ public class SignInController {
         return "user/login/register";
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/signup")
     public String createUser(@Validated MemberDTOForm form, BindingResult result) {
+        System.out.println("api connect");
         if (result.hasErrors()) {
             return "user/login/register";
         }

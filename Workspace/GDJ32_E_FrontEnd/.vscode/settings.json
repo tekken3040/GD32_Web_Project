@@ -3,7 +3,7 @@
 "prettier.endOfLine":"crlf", 
 //prettier-eslint 연동
 "editor.formatOnSave": true,
-"javascript.format.enable": false,
+//"javascript.format.enable": false,
 "prettier.eslintIntegration": true,
 "git.ignoreLimitWarning": true,
 }
