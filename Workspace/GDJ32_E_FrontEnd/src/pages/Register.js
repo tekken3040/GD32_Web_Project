@@ -1,4 +1,5 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import React, { useRef } from 'react';
 import {useDispatch} from 'react-redux';
 import { Helmet } from 'react-helmet';
 // import PropTypes from 'prop-types';
@@ -18,18 +19,17 @@ import requestSignUp from '../customAxios';
 
 const Register = (history) => {
   const navigate = useNavigate();
-
+  const userID = useRef(null);
+  const userPassword = useRef(null);
+  const userName = useRef(null);
+  const userZipcode = useRef(null);
+  const userAddress = useRef(null);
+  const userAddressDetail = useRef(null);
+  const userPhone = useRef(null);
+  const userEmail = useRef(null);
+  const userBirthday = useRef(null);
   const onSubmitHandler = (e) => {
     console.log("in onSubmitHandler");
-    const userID = document.querySelector('.id').value;
-    const userPassword = document.querySelector('.password').value;
-    const userName = document.querySelector('.name').value;
-    const userZipcode = document.querySelector('.zipcode').value;
-    const userAddress = document.querySelector('.address').value;
-    const userAddressDetail = document.querySelector('.address_detail').value;
-    const userPhone = document.querySelector('.phone').value;
-    const userEmail = document.querySelector('.email').value;
-    const userBirthday = document.querySelector('.birthDay').value;
     const dispatch = useDispatch();
     const SignUpData = {
       userID, 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.GDJ32.mapper.UserMapper">
+    <insert id="insertUser" parameterType="com.GDJ32.vo.MemberDTO">
+        INSERT INTO users(id, password, name, zipcode, address, address_detail, phone, email, birthday)
+        VALUES(#{id}, #{password}, #{name}, #{zipcode}, #{address}, #{address_detail}, #{phone}, #{email}, #{birthdat})
+    </insert>
+    <select id="userList" resultType="com.GDJ32.vo.MemberDTO">
+        SELECT * FROM users
+        ORDER BY id
+    </select>
+    <select id="fetchUserByID" resultType="com.GDJ32.vo.MemberDTO" parameterType="int">
+        SELECT * FROM users
+        WHERE id = #{id}
+    </select>
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM users
+        WHERE id = #{id}
+    </delete>
+    <update id="updateUser" parameterType="com.GDJ32.vo.MemberDTO">
+        UPDATE users
+        SET password = #{password}, name = #{name}, zipcode = #{zipcode}, address = #{address}, address_detail = #{address_detail}, phone = #{phone}, email = #{email}, birthday = #{birthday}
+        WHERE id = #{id}
+    </update>
+</mapper>

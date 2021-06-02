@@ -198,5 +198,13 @@ public class MemberDTO {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    @Override
+    public String toString() {
+        return "MemberDTO [address=" + address + ", address_detail=" + address_detail + ", birthday=" + birthday
+                + ", email=" + email + ", id=" + id + ", index=" + index + ", name=" + name + ", password=" + password
+                + ", phone=" + phone + ", zipcode=" + zipcode + "]";
+    }
     //#endregion
+    
 }
