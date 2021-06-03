@@ -34,8 +34,9 @@ public class SignInController {
     void insertUser(@RequestBody MemberDTO user) {
         userMapper.insertUser(user);
         System.out.println("유저 저장 성공");
+        userMapper.insertUserDetail(userMapper.selectUserByID(user.getId()));
     }
-
+    
     @GetMapping("/{id}")
     public MemberDTO fetchUserByID(@PathVariable int id) {
         System.out.println(userMapper.fetchUserByID(id));

@@ -16,5 +16,9 @@ public interface UserMapper {
 
     void insertUser(MemberDTO user);
 
+    void insertUserDetail(int member_index);
+
+    int selectUserByID(String id);
+
     void deleteUser(int id);
 }
