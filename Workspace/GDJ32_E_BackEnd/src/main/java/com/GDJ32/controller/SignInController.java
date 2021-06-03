@@ -6,6 +6,7 @@ import com.GDJ32.mapper.UserMapper;
 import com.GDJ32.vo.MemberDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class SignInController {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public SignInController(PasswordEncoder passwordEncoder)
+    {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Autowired
     UserMapper userMapper;
 
@@ -32,11 +41,12 @@ public class SignInController {
 
     @PostMapping
     void insertUser(@RequestBody MemberDTO user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insertUser(user);
         System.out.println("유저 저장 성공");
         userMapper.insertUserDetail(userMapper.selectUserByID(user.getId()));
     }
-    
+
     @GetMapping("/{id}")
     public MemberDTO fetchUserByID(@PathVariable int id) {
         System.out.println(userMapper.fetchUserByID(id));

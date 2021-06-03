@@ -1,6 +1,5 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import React, { useRef } from 'react';
-import {useDispatch} from 'react-redux';
+import { Link as RouterLink, /* useNavigate */ } from 'react-router-dom';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 // import PropTypes from 'prop-types';
 import * as Yup from 'yup';
@@ -15,40 +14,45 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import requestSignUp from '../customAxios';
+import ApiService from '../ApiService';
 
 const Register = (history) => {
-  const navigate = useNavigate();
-  const userID = useRef(null);
-  const userPassword = useRef(null);
-  const userName = useRef(null);
-  const userZipcode = useRef(null);
-  const userAddress = useRef(null);
-  const userAddressDetail = useRef(null);
-  const userPhone = useRef(null);
-  const userEmail = useRef(null);
-  const userBirthday = useRef(null);
-  const onSubmitHandler = (e) => {
-    console.log("in onSubmitHandler");
-    const dispatch = useDispatch();
-    const SignUpData = {
-      userID, 
-      userPassword, 
-      userName, 
-      userZipcode,
-      userAddress,
-      userAddressDetail,
-      userPhone,
-      userEmail,
-      userBirthday,
-    };
-    dispatch(requestSignUp("post", "/signup", SignUpData)).then((res) => {
-      e.preventDefault();
-      console.log(res);
-      history.push("/login");
-    });
-  };
-  return (
+  // const navigate = useNavigate();
+  const state = {
+    id: "",
+    password: "",
+    name: "",
+    zipcode: "",
+    address: "",
+    address_detail: "",
+    phone: "",
+    email: "",
+    birthday: ""
+  }
+
+  let saveUser = () => {
+    user = {
+        id: state.id,
+        password: state.password,
+        name: state.name,
+        zipcode: state.zipcode,
+        address: state.address,
+        address_detail: state.address_detail,
+        phone: state.phone,
+        email: state.email,
+        birthday: state.birthday,
+    }
+    ApiService.addUser(user)
+        .then(res => {
+          console.log(state.message);
+          console.log(res.statusText);
+            history.push('/users');
+        }) 
+        .catch(err => {
+            console.log("saveUser() 에러", err);
+        });
+  }
+return (
     <>
       <Helmet>
         <title>Register | Material Kit</title>
@@ -73,7 +77,7 @@ const Register = (history) => {
               address_detail: '',
               phone: '',
               email: '',
-              birthDay: '',
+              birthday: '',
               policy: false
             }}
             validationSchema={
@@ -86,13 +90,13 @@ const Register = (history) => {
                 address_detail: Yup.string().max(255).required('Address detail is required'),
                 phone: Yup.string().max(255).required('Phone is required'),
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                birthDay: Yup.date().default(() => new Date()),
+                birthday: Yup.date().default(() => new Date()),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
             onSubmit={() => {
-              onSubmitHandler();
-              navigate('/app/dashboard', { replace: true });
+              // navigate('/app/dashboard', { replace: true });
+              saveUser();
             }}
           >
             {({
@@ -221,16 +225,16 @@ const Register = (history) => {
                 />
                 <TextField
                   InputLabelProps={{shrink : true}}
-                  error={Boolean(touched.birthDay && errors.birthDay)}
+                  error={Boolean(touched.birthday && errors.birthday)}
                   fullWidth
-                  helperText={touched.birthDay && errors.birthDay}
+                  helperText={touched.birthday && errors.birthday}
                   label="Birth Day"
                   margin="normal"
-                  name="birthDay"
+                  name="birthday"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="date"
-                  value={values.birthDay}
+                  value={values.birthday}
                   variant="outlined"
                 />
                 <Box
