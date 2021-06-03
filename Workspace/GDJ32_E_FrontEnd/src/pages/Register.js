@@ -1,4 +1,5 @@
 import { Link as RouterLink, /* useNavigate */ } from 'react-router-dom';
+// import { useHistory } from "react-router";
 import React from 'react';
 import { Helmet } from 'react-helmet';
 // import PropTypes from 'prop-types';
@@ -16,43 +17,34 @@ import {
 } from '@material-ui/core';
 import ApiService from '../ApiService';
 
-const Register = (history) => {
-  // const navigate = useNavigate();
-  const state = {
-    id: "",
-    password: "",
-    name: "",
-    zipcode: "",
-    address: "",
-    address_detail: "",
-    phone: "",
-    email: "",
-    birthday: ""
-  }
+// const history = useHistory();
 
-  let saveUser = () => {
-    user = {
-        id: state.id,
-        password: state.password,
-        name: state.name,
-        zipcode: state.zipcode,
-        address: state.address,
-        address_detail: state.address_detail,
-        phone: state.phone,
-        email: state.email,
-        birthday: state.birthday,
-    }
+const initialValues = {
+    id: '',
+    password: '',
+    name: '',
+    zipcode: '',
+    address: '',
+    address_detail: '',
+    phone: '',
+    email: '',
+    birthday: '',
+    policy: false
+};
+  
+const Register = (history) => {
+
+  function saveUser(user) {
     ApiService.addUser(user)
-        .then(res => {
-          console.log(state.message);
-          console.log(res.statusText);
-            history.push('/users');
-        }) 
-        .catch(err => {
-            console.log("saveUser() 에러", err);
-        });
+    .then(res => {
+      console.log(res.statusText);
+      history.push('/users');
+    }) 
+    .catch(err => {
+      console.log("saveUser() 에러", err);
+    });
   }
-return (
+  return (
     <>
       <Helmet>
         <title>Register | Material Kit</title>
@@ -68,18 +60,7 @@ return (
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              id: '',
-              password: '',
-              name: '',
-              zipcode: '',
-              address: '',
-              address_detail: '',
-              phone: '',
-              email: '',
-              birthday: '',
-              policy: false
-            }}
+            initialValues={initialValues}
             validationSchema={
               Yup.object().shape({
                 id: Yup.string().max(255).required('ID is required'),
@@ -94,9 +75,10 @@ return (
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
+            onSubmit={(values) => {
               // navigate('/app/dashboard', { replace: true });
-              saveUser();
+              console.log(values);
+              saveUser(values);
             }}
           >
             {({
@@ -237,6 +219,7 @@ return (
                   value={values.birthday}
                   variant="outlined"
                 />
+                <pre>{JSON.stringify(values, null, 2)}</pre>
                 <Box
                   sx={{
                     alignItems: 'center',
