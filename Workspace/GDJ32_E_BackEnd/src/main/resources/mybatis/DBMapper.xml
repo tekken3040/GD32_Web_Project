@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.GDJ32.mapper.TestMapper">
+	<sql id="memberColumns">
+		member_index, id, password, name, zipcode, address, address_detail, phone, email, birthday
+	</sql>
 	<select id="selectTest" resultType="TestVo">
 		SELECT * FROM Member;
 	</select>
+	<insert id="memberInsert" parameterType="com.GDJ32.vo.MemberDTO">
+		INSERT INTO gdj32_member (
+			<include refid="memberColumns"></include>
+		) VALUES (
+			#{member_index}, #{id}, #{password}, #{name}, #{zipcode}, #{address}, #{address_detail}, #{phone}, #{email}, #{birthday}
+		)
+	</insert>
 </mapper>

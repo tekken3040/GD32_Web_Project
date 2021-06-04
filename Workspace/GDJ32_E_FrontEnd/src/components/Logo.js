@@ -4,6 +4,7 @@ const Logo = (props) => (
     src="/static/logo.svg"
     {...props}
   />
+
 );
 
 export default Logo;

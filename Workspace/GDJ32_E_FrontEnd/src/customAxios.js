@@ -5,8 +5,9 @@ export default function customAxios(url, callback) {
     {
       // 리액트에서는 스트링 조합에 '+' 를 사용하지 못하는것 같아서
       // ${}처리함
-      url: `/api${url}`,
-      method: 'post',
+      // url: `/api${url}`,
+      url: `${url}`,
+      method: 'get',
 
       /**
        * 개발 환경에서의 크로스 도메인 이슈를 해결하기 위한 코드로

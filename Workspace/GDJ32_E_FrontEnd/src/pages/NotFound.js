@@ -19,7 +19,7 @@ const NotFound = () => {
     () => {
       // 클라이언트의 IP주소를 알아내는 백엔드의 함수를 호출합니다.
       // customAxios('/ip', callback);
-      customAxios('/test', callback);
+      customAxios('/api/test', callback);
     }, []
   );
 

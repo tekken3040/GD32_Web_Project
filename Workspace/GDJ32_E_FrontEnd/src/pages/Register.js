@@ -33,18 +33,28 @@ const Register = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: '',
-              firstName: '',
-              lastName: '',
+              id: '',
               password: '',
+              name: '',
+              zipcode: '',
+              address: '',
+              address_detail: '',
+              phone: '',
+              email: '',
+              birthDay: '',
               policy: false
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
+                id: Yup.string().max(255).required('ID is required'),
                 password: Yup.string().max(255).required('password is required'),
+                name: Yup.string().max(255).required('Name is required'),
+                zipcode: Yup.string().max(255).required('Zipode is required'),
+                address: Yup.string().max(255).required('Address is required'),
+                address_detail: Yup.string().max(255).required('Address detail is required'),
+                phone: Yup.string().max(255).required('Phone is required'),
+                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                birthDay: Yup.date().default(() => new Date()),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
@@ -62,7 +72,7 @@ const Register = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
-                <Box sx={{ mb: 3 }}>
+                <Box sx={{ mb: 1, mt: 5 }}>
                   <Typography
                     color="textPrimary"
                     variant="h2"
@@ -78,40 +88,15 @@ const Register = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.id && errors.id)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.id && errors.id}
+                  label="ID"
                   margin="normal"
-                  name="firstName"
+                  name="id"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
-                  fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
-                  margin="normal"
-                  name="lastName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.email && errors.email)}
-                  fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  value={values.id}
                   variant="outlined"
                 />
                 <TextField
@@ -125,6 +110,94 @@ const Register = () => {
                   onChange={handleChange}
                   type="password"
                   value={values.password}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.name && errors.name)}
+                  fullWidth
+                  helperText={touched.name && errors.name}
+                  label="Name"
+                  margin="normal"
+                  name="name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.name}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.zipcode && errors.zipcode)}
+                  fullWidth
+                  helperText={touched.zipcode && errors.zipcode}
+                  label="Zipcode"
+                  margin="normal"
+                  name="zipcode"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.zipcode}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.address && errors.address)}
+                  fullWidth
+                  helperText={touched.address && errors.address}
+                  label="Address"
+                  margin="normal"
+                  name="address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.address}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.address_detail && errors.address_detail)}
+                  fullWidth
+                  helperText={touched.address_detail && errors.address_detail}
+                  label="Address detail"
+                  margin="normal"
+                  name="address_detail"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.address_detail}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.phone && errors.phone)}
+                  fullWidth
+                  helperText={touched.phone && errors.phone}
+                  label="Phone"
+                  margin="normal"
+                  name="phone"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.phone}
+                  variant="outlined"
+                />
+                <TextField
+                  // InputLabelProps={{shrink : true}}
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  label="Email Address"
+                  margin="normal"
+                  name="email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="email"
+                  value={values.email}
+                  variant="outlined"
+                />
+                <TextField
+                  InputLabelProps={{shrink : true}}
+                  error={Boolean(touched.birthDay && errors.birthDay)}
+                  fullWidth
+                  helperText={touched.birthDay && errors.birthDay}
+                  label="Birth Day"
+                  margin="normal"
+                  name="birthDay"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="date"
+                  value={values.birthDay}
                   variant="outlined"
                 />
                 <Box
