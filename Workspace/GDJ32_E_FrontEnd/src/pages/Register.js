@@ -1,4 +1,4 @@
-import { Link as RouterLink, /* useNavigate */ } from 'react-router-dom';
+import { Link as RouterLink,  useNavigate } from 'react-router-dom';
 // import { useHistory } from "react-router";
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -32,13 +32,16 @@ const initialValues = {
     policy: false
 };
   
-const Register = (history) => {
+const Register = () => {
+
+  const navigate = useNavigate();
 
   function saveUser(user) {
     ApiService.addUser(user)
     .then(res => {
       console.log(res.statusText);
-      history.push('/users');
+      // history.push('/');
+      navigate('/app/home', { replace: true });
     }) 
     .catch(err => {
       console.log("saveUser() 에러", err);
