@@ -13,9 +13,26 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
+import ApiService from 'src/ApiService';
+
+const initialValues = {
+  id: '',
+  password: ''
+}
 
 const Login = () => {
   const navigate = useNavigate();
+
+  function loginUser(user) {
+    ApiService.loginUser(user)
+      .then(res => {
+        console.log(res.statusText);
+        navigate('/app/home', { replace: true });
+      })
+      .catch(err => {
+        console.log("login err : ", err)
+      });
+  }
 
   return (
     <>
@@ -33,16 +50,15 @@ const Login = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
-            }}
+            initialValues={{initialValues}}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              id: Yup.string().max(255).required('ID is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              // navigate('/app/dashboard', { replace: true });
+              console.log(values);
+              loginUser(values);
             }}
           >
             {({
@@ -117,20 +133,20 @@ const Login = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    or login with email address
+                    or login with ID
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.id && errors.id)}
                   fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
+                  helperText={touched.id && errors.id}
+                  label="ID"
                   margin="normal"
-                  name="email"
+                  name="id"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  type="text"
+                  value={values.id}
                   variant="outlined"
                 />
                 <TextField

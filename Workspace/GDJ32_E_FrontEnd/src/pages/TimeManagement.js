@@ -13,11 +13,8 @@ const TimeManagement = () => (
         py: 3
       }}
     >
-      <Container maxWidth={false}>
-        {/* <BoardListToolbar />
-        <Box sx={{ pt: 3 }}>
-          <BoardListResults Board={Board} />
-        </Box> */}
+      <Container maxWidth="lg">
+        근태관리
       </Container>
     </Box>
   </>

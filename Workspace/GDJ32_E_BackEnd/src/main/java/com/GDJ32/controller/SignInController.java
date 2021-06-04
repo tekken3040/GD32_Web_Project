@@ -47,6 +47,11 @@ public class SignInController {
         userMapper.insertUserDetail(userMapper.selectUserByID(user.getId()));
     }
 
+    @PostMapping("/login")
+    void loginUser() {
+        System.out.println("유저 로그인 들어옴");
+    }
+
     @GetMapping("/{id}")
     public MemberDTO fetchUserByID(@PathVariable int id) {
         System.out.println(userMapper.fetchUserByID(id));
