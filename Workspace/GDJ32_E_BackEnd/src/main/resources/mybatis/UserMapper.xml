@@ -13,7 +13,7 @@
     </select>
     <select id="userList" resultType="com.GDJ32.vo.MemberDTO">
         SELECT * FROM gdj_member
-        ORDER BY id
+        ORDER BY member_index
     </select>
     <select id="fetchUserByID" resultType="com.GDJ32.vo.MemberDTO" parameterType="int">
         SELECT * FROM gdj_member
@@ -27,5 +27,10 @@
         UPDATE gdj_member
         SET password = #{password}, name = #{name}, zipcode = #{zipcode}, address = #{address}, address_detail = #{address_detail}, phone = #{phone}, email = #{email}, birthday = #{birthday}
         WHERE id = #{id}
+    </update>
+    <update id="updateUserId" parameterType="com.GDJ32.vo.TestVo">
+        UPDATE gdj_member_detail
+        SET id = #{id}
+        WHERE member_index = #{member_index}
     </update>
 </mapper>

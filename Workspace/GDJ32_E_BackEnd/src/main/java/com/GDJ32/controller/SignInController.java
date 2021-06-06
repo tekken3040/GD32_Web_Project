@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.GDJ32.mapper.UserMapper;
 import com.GDJ32.vo.MemberDTO;
+import com.GDJ32.vo.TestVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,14 +33,28 @@ public class SignInController {
     @Autowired
     UserMapper userMapper;
 
-    @GetMapping
+    // @GetMapping("/updateUserId")
     public List<MemberDTO> userList() {
-        System.out.println(userMapper.userList());
+        // System.out.println(userMapper.userList());
         System.out.println("유저출력 성공");
+
         return userMapper.userList();
     }
 
-    @PostMapping
+    @GetMapping("/updateUserId")
+    void updateUserId() {
+        List<MemberDTO> tempList = userMapper.userList();
+        
+        for (int i = 0; i < tempList.size(); i++)
+        {
+            TestVo testVo = new TestVo();
+            testVo.setMember_index(userMapper.selectUserByID(tempList.get(i).getId()));
+            testVo.setId(tempList.get(i).getId());
+            userMapper.updateUserId(testVo);
+        }
+    }
+
+    @PostMapping("/signup")
     void insertUser(@RequestBody MemberDTO user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insertUser(user);

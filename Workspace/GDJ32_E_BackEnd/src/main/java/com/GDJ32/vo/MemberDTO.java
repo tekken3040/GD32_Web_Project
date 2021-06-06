@@ -28,6 +28,7 @@ public class MemberDTO {
     //#region Values
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_index")
     private Integer index;
 	
 	@Column(name = "id")

@@ -16,16 +16,22 @@ class ApiService {
           return axios.delete(USER_API_BASE_URL + '/' + userID);
       }
   */
+
     addUser = (user) => {
         console.log("addUser In");
-        return axios.post(`${USER_API_BASE_URL}/users`, user);
+        return axios.post(`${USER_API_BASE_URL}/users/signup`, user);
     }
 
     loginUser = (user) => {
         console.log("login success");
-        console.log(`URL : ${USER_API_BASE_URL}/auth/login`);
+        console.log(`URL : ${USER_API_BASE_URL}/users/login`);
         console.log(user);
-        return axios.post(`${USER_API_BASE_URL}/auth/login`, user);
+        const userData = {
+            id: user.id,
+            paddword: user.password
+        }
+        console.log(userData);
+        return axios.post(`${USER_API_BASE_URL}/users/login`, userData);
     }
 /*
     editUser(user) {
