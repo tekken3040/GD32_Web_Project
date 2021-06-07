@@ -1,5 +1,6 @@
 package com.GDJ32.vo;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AccessLevel;
@@ -25,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "gdj_member")
 public class UserInfo implements UserDetails {
     @Id
-    // @Column(name = "member_index")
+    @Column(name = "member_index")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int member_index;
 
@@ -54,9 +56,9 @@ public class UserInfo implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
-        Set<GrantedAuthority> roles = new HashSet<>();
+        // Set<GrantedAuthority> roles = new HashSet<>();
         // for(String role : auth.split)
-        return roles;
+        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
     }
 
     // 사용자의 password를 반환

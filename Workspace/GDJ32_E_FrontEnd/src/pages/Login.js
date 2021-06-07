@@ -57,7 +57,6 @@ const Login = () => {
             })}
             onSubmit={(values) => {
               // navigate('/app/dashboard', { replace: true });
-              console.log(values);
               loginUser(values);
             }}
           >

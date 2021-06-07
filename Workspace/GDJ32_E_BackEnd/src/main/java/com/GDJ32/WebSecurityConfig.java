@@ -7,6 +7,7 @@ import com.GDJ32.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -52,23 +53,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/admin").hasRole("ADMIN")
             .and()
                 .formLogin()
-                    .loginPage("/users/login").defaultSuccessUrl("/")
+                    .loginPage("/users/login").defaultSuccessUrl("/").permitAll()
             .and()
                 .logout()
                 .logoutSuccessUrl("/users/login")
                 .invalidateHttpSession(true);
-        // http
-        //     .authorizeRequests()
-        //     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-        //     .anyRequest().authenticated()
-        //         .and().cors().and();
         http.httpBasic().disable().cors().configurationSource(configurationSource())
         .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // http.cors().and();
-        // http.httpBasic().disable();
-        // http.csrf().disable();
-        // http.formLogin().disable().headers().frameOptions().disable();
+        http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
     }
     
 	@Override
@@ -80,16 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-        .dataSource(dataSource)
-        .usersByUsernameQuery(
-            "select member_index, username, password, enabled from gdj_member " + 
-            "where username=?")
-        .authoritiesByUsernameQuery(
-            "select username, manager from gdj_member_detail " + 
-            "where username=?"
-        );
+        // auth.jdbcAuthentication()
+        // .dataSource(dataSource)
+        // .usersByUsernameQuery(
+        //     "select member_index, id, password, enabled from gdj_member " + 
+        //     "where id=?")
+        // .authoritiesByUsernameQuery(
+        //     "select id, manager from gdj_member_detail " + 
+        //     "where id=?"
+        // ).passwordEncoder(new BCryptPasswordEncoder());
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.authenticationProvider(authenticationProvider());
     }
     
     @Bean
@@ -114,5 +108,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         firewall.setAllowUrlEncodedSlash(true);
         firewall.setAllowSemicolon(true);
         return firewall;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(getPasswordEncoder());
+
+        return auth;
     }
 }

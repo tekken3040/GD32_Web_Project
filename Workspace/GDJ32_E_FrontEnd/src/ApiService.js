@@ -22,16 +22,34 @@ class ApiService {
         return axios.post(`${USER_API_BASE_URL}/users/signup`, user);
     }
 
+    // loginUser = (user) => {
+    //     console.log("login success");
+    //     console.log(`URL : ${USER_API_BASE_URL}/users/login`);
+    //     console.log(user);
+    //     const userData = {
+    //         id: user.id,
+    //         password: user.password
+    //     }
+    //     console.log(userData);
+    //     return axios.post(`${USER_API_BASE_URL}/users/login`, userData);
+    // }
     loginUser = (user) => {
-        console.log("login success");
-        console.log(`URL : ${USER_API_BASE_URL}/users/login`);
-        console.log(user);
-        const userData = {
-            id: user.id,
-            paddword: user.password
+        const options = {
+            url: `${USER_API_BASE_URL}/users/login`,
+            method: 'POST',
+            Headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            data: {
+                id: user.id,
+                password: user.password
+            }
         }
-        console.log(userData);
-        return axios.post(`${USER_API_BASE_URL}/users/login`, userData);
+        console.log(options);
+        axios(options).then(response => {
+            console.log(response.status);
+        });
     }
 /*
     editUser(user) {

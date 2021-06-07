@@ -1,5 +1,8 @@
 package com.GDJ32.vo;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberDTO {
+public class MemberDTO implements UserDetails{
     //#region Values
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +41,7 @@ public class MemberDTO {
 	private String id;
 	
 	@Column(name = "password")
-	private String password;
+	private String passWord;
 	
 	@Column(name = "name")
 	private String name;
@@ -91,15 +97,15 @@ public class MemberDTO {
     /**
      * @return String return the password
      */
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String password) {
+        this.passWord = password;
     }
 
     /**
@@ -203,8 +209,50 @@ public class MemberDTO {
     @Override
     public String toString() {
         return "MemberDTO [address=" + address + ", address_detail=" + address_detail + ", birthday=" + birthday
-                + ", email=" + email + ", id=" + id + ", index=" + index + ", name=" + name + ", password=" + password
+                + ", email=" + email + ", id=" + id + ", index=" + index + ", name=" + name + ", password=" + passWord
                 + ", phone=" + phone + ", zipcode=" + zipcode + "]";
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+    }
+
+    @Override
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        return this.id;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public String getPassword() {
+        // TODO Auto-generated method stub
+        return this.passWord;
     }
     //#endregion
     

@@ -5,6 +5,7 @@ import java.util.List;
 import com.GDJ32.mapper.UserMapper;
 import com.GDJ32.vo.MemberDTO;
 import com.GDJ32.vo.TestVo;
+import com.GDJ32.vo.UserInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,14 +57,17 @@ public class SignInController {
 
     @PostMapping("/signup")
     void insertUser(@RequestBody MemberDTO user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassWord(passwordEncoder.encode(user.getPassword()));
         userMapper.insertUser(user);
         System.out.println("유저 저장 성공");
         userMapper.insertUserDetail(userMapper.selectUserByID(user.getId()));
     }
 
     @PostMapping("/login")
-    void loginUser() {
+    void loginUser(@RequestBody UserInfo user) {
+        System.out.println(user.getMember_index());
+        System.out.println(user.getId());
+        System.out.println(user.getPassword());
         System.out.println("유저 로그인 들어옴");
     }
 
@@ -79,7 +83,7 @@ public class SignInController {
         MemberDTO updateUser = user;
         System.out.println("업데이트 유저 => " + updateUser);
 
-        updateUser.setPassword(user.getPassword());
+        updateUser.setPassWord(user.getPassword());
         updateUser.setName(user.getName());
         updateUser.setZipcode(user.getZipcode());
         updateUser.setAddress(user.getAddress());
