@@ -51,12 +51,14 @@ class ListBoardComponent extends Component {
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
     listBoard = (pNum) => {
         console.log(`pageNum : ${pNum}`);
+        console.log("listBoard");
         let tempNum = 1;
-        if (pNum === "")
+        if (pNum === "undefined")
             tempNum = 1;
         else
             tempNum = pNum;
         
+        console.log(tempNum);
         BoardService.getBoards(tempNum).then((res) => {
             console.log(res.data);
             this.setState({
@@ -67,6 +69,7 @@ class ListBoardComponent extends Component {
     }
 
     getBoardCategory = (value) => {
+        console.log("getBoardCategory");
         let name = "Not Defined";
         switch(value) {
             case Category.NOTICE.value:
@@ -90,6 +93,7 @@ class ListBoardComponent extends Component {
 
     getBoardCreateDay = (value) => {
         console.log(`작성일 : ${value}`);
+        console.log("getBoardCreateDay");
         return value;
     }
 
@@ -97,7 +101,7 @@ class ListBoardComponent extends Component {
     viewPaging = () => {
         const pageNums = [];
         const boardState = this.state;
-
+        console.log("viewPaging");
         for (let i = boardState.paging.pageNumStart; i <= boardState.paging.pageNumEnd; i++ ) {
             pageNums.push(i);
         }
@@ -122,7 +126,7 @@ class ListBoardComponent extends Component {
     // 이전 페이지 이동버튼을 출력하는 함수
     isPagingPrev = () => {
         const boardState = this.state;
-
+        console.log("isPagingPrev");
         if(boardState.paging.prev) {
             (
                 <li className="page-item">
@@ -135,6 +139,7 @@ class ListBoardComponent extends Component {
     // 다음 페이지 이동 버튼을 출력하는 함수
     isPagingNext = () => {
         const boardState = this.state;
+        console.log("isPagingNext");
         if (boardState.paging.next) {
             (
                 <li className="page-item">
@@ -147,6 +152,7 @@ class ListBoardComponent extends Component {
     // 첫페이지 이동 버튼을 출력하는 함수
     isMoveToFirstPage = () => {
         const boardState = this.state;
+        console.log("isMoveToFirstPage");
         if (boardState.pNum !== 1) {
             (
                 <li className="page-item">
@@ -159,6 +165,7 @@ class ListBoardComponent extends Component {
     // 마지막 페이지 이동 버튼을 출력하는 함수
     isMoveToLastPage = () => {
         const boardState = this.state;
+        console.log("isMoveToLastPage");
         if (boardState.pNum !== boardState.paging.pageNumCountTotal) {
             (
                 <li className="page-item">
@@ -179,20 +186,32 @@ class ListBoardComponent extends Component {
         
         history('/create-board/_create');
     }
-
     // # 글 제목을 클릭 했을 때 글 상세보기 페이지로 이동해주는 함수정의
     // readBoard(index){
     readBoard = (idx) => {
         // const thisProps = this.props;
         // this.props.history.push(`/read-board/${index}` ); // * 인자넘김 방법1
         // this.props.history.push('/read-board/' + index ); // *인자넘검 방법2
-        history(`/read-board/${idx}`);
+        // history(`/read-board/${idx}`, {replace: true});
+
+        console.log("readBoard event", idx);
+        
+        BoardService.getOneBoard(idx)
+            .then(res => {
+                console.log(res);
+                history(`/read-board/${idx}`);
+                console.log(`/read-board/${idx}`);
+            })
+            .catch(err => {
+                console.log("getBoard err", err);
+            });
     }
-    
+
     // # 3.
     render() {
         const boardState = this.state;
         console.log(boardState);
+        
         return (
             <div>
                 <h2 className="text-center">게시판 목록</h2>
@@ -233,8 +252,12 @@ class ListBoardComponent extends Component {
                                         <td> {board.idx} </td>
 
                                         <td> {this.getBoardCategory(board.category)} </td>
-                                        {/* <td> <a onClick = {() => this.readBoard(board.index)}>{board.title}</a></td> */}
-                                        <td> <a onClick = {this.readBoard(board.idx)} aria-hidden="true" role = "button" tabIndex="-1">{board.title}</a></td>
+                                            {/* <td> <a onClick = {() => this.readBoard(board.index)}>{board.title}</a></td> */}
+                                            <td>
+                                                <a onClick={this.readBoard(board.idx)} aria-hidden="true" role="button" tabIndex="-1">
+                                                    {board.title}
+                                                </a>
+                                            </td>
                                         <td> {board.id} </td>
                                         <td> {this.getBoardCreateDay(board.created_day)} </td>
                                         <td> {board.viewCnt} </td>
@@ -250,19 +273,19 @@ class ListBoardComponent extends Component {
                     <nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-center">
                             {
-                                this.isMoveToFirstPage()
+                                // this.isMoveToFirstPage()
                             }
                             {
-                                this.isPagingPrev()
+                                // this.isPagingPrev()
                             }
                             {
-                                this.viewPaging()
+                                // this.viewPaging()
                             }
                             {
-                                this.isPagingNext()
+                                // this.isPagingNext()
                             }
                             {
-                                this.isMoveToLastPage()
+                                // this.isMoveToLastPage()
                             }
                         </ul>
                     </nav>
