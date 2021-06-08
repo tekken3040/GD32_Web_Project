@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import BoardService from '../../service/BoardService';
-
 // const createBtn = {
 //     width : "7rem",
 //     color: "#212529",
@@ -21,6 +20,8 @@ const Category = {
         MARCKET: {value: 3, name: "중고나라"}
 }
 
+const history = useNavigate;
+
 class ListBoardComponent extends Component {
     constructor(props) {
         super(props)
@@ -31,13 +32,14 @@ class ListBoardComponent extends Component {
             boards: []
         }
         // #1. 글 작성 버튼 클릭시 동작
-        // this.createBoard = this.createBoard.bind(this);
+        this.createBoard = this.createBoard.bind(this);
     }
     
     // 페이지가 로딩될 때, 글 목록만 가져오던 것을 , 페이징 객체도 같이 가져오도록 수정
     componentDidMount() {
         const bState = this.state;
-
+        console.log("componentDidMount in")
+        console.log(bState);
         BoardService.getBoards(bState.pNum).then((res) => {
             this.setState({ 
                 pNum: res.data.pagingData.currentPageNum,
@@ -49,8 +51,13 @@ class ListBoardComponent extends Component {
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
     listBoard = (pNum) => {
         console.log(`pageNum : ${pNum}`);
+        let tempNum = 1;
+        if (pNum === "")
+            tempNum = 1;
+        else
+            tempNum = pNum;
         
-        BoardService.getBoards(pNum).then((res) => {
+        BoardService.getBoards(tempNum).then((res) => {
             console.log(res.data);
             this.setState({
                 pNum: res.data.pagingData.currentPageNum,
@@ -168,23 +175,24 @@ class ListBoardComponent extends Component {
     // 사용자 토큰 정보나 결제 정보 또는 게시물의 일련번호 등 다음 페이지로 넘어갈 때 파라미터를 가지고 넘어가야할 때 push를 써서 이동할 때는 아래처럼 이용
     // this.props.history.push({pathname:'이동할 링크',state:{detail:전달할 파라미터}})
     createBoard = () => {
-        const thisProps = this.props;
-        thisProps.history.push('/create-board/_create');
+        // const thisProps = this.props;
+        
+        history('/create-board/_create');
     }
 
     // # 글 제목을 클릭 했을 때 글 상세보기 페이지로 이동해주는 함수정의
     // readBoard(index){
     readBoard = (idx) => {
-        const thisProps = this.props;
+        // const thisProps = this.props;
         // this.props.history.push(`/read-board/${index}` ); // * 인자넘김 방법1
         // this.props.history.push('/read-board/' + index ); // *인자넘검 방법2
-        thisProps.history.push(`/read-board/${idx}`);
+        history(`/read-board/${idx}`);
     }
     
     // # 3.
     render() {
         const boardState = this.state;
-
+        console.log(boardState);
         return (
             <div>
                 <h2 className="text-center">게시판 목록</h2>
@@ -264,4 +272,4 @@ class ListBoardComponent extends Component {
     }
 }
 
-export default withRouter(ListBoardComponent);
+export default ListBoardComponent;
