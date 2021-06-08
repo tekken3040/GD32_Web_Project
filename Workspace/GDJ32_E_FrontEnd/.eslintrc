@@ -28,12 +28,14 @@
     "no-console":"off", 
     "no-plusplus":"off", 
     "import/no-named-as-default":0, 
-    "import/no-unresolved": "off",
+    "import/no-unresolved":"off", 
     "react/forbid-prop-types":"off", 
     "react/jsx-filename-extension":"off", 
     "react/jsx-props-no-spreading":"off", 
     "react/react-in-jsx-scope":"off", 
     "react/require-default-props":"off", 
+     "react/prop-types": "off", 
+    "lines-between-class-members":"off", 
     "linebreak-style":["error", "windows"]
   }
 }

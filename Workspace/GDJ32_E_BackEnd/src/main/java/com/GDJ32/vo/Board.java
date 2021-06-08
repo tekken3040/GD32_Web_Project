@@ -14,165 +14,281 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.Transient;
 
 @Entity
-@Table(name = "board")
+//@Table(name = "board")
+@Table(name = "gdj_board")
 @DynamicInsert
 @DynamicUpdate
 public class Board {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer no;
-	
-	@Column(name = "type")
-	private String type;
+	private Integer idx;
 	
 	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "contents")
-	private String contents;
+	@Column(name = "content")
+	private String content;
 	
-	@Column(name = "member_no")
-	private Integer memberNo;
+	@Column(name = "category")
+	private Integer category;
 	
-	@Column(name = "created_time")
-	private Date createdTime;
+	@Column(name = "id")
+	private String id;
 	
-	@Column(name = "updated_time")
-	private Date updatedTime;
 	
-	@Column(name = "like")
+	@Column(name = "created_day")
+	private Date created_day;
+	
+	@Column(name = "view_cnt")
+	private Integer viewCnt;
+	
+	@Column(name = "reply_cnt")
+	private Integer replyCnt;
+	
+	@Column(name = "likes")
 	private Integer likes;
 	
-	@Column(name = "counts")
-	private Integer counts;
+	
+	public Integer getIdx() {
+		return idx;
+	}
 
-// ---Getter/Setter ---
+	public void setIndex(Integer idx) {
+		this.idx = idx;
+	}
 
-    /**
-     * @return Integer return the no
-     */
-    public Integer getNo() {
-        return no;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    /**
-     * @param no the no to set
-     */
-    public void setNo(Integer no) {
-        this.no = no;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    /**
-     * @return String return the type
-     */
-    public String getType() {
-        return type;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    /**
-     * @return String return the title
-     */
-    public String getTitle() {
-        return title;
-    }
+	public Integer getCategory() {
+		return category;
+	}
 
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setCategory(Integer category) {
+		this.category = category;
+	}
 
-    /**
-     * @return String return the contents
-     */
-    public String getContents() {
-        return contents;
-    }
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * @param contents the contents to set
-     */
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * @return Integer return the memberNo
-     */
-    public Integer getMemberNo() {
-        return memberNo;
-    }
+	public Date getCreatetDay() {
+		return created_day;
+	}
 
-    /**
-     * @param memberNo the memberNo to set
-     */
-    public void setMemberNo(Integer memberNo) {
-        this.memberNo = memberNo;
-    }
+	public void setCreatedDay(Date createdDay) {
+		this.created_day = createdDay;
+	}
 
-    /**
-     * @return Date return the createdTime
-     */
-    public Date getCreatedTime() {
-        return createdTime;
-    }
+	public Integer getViewCnt() {
+		return viewCnt;
+	}
 
-    /**
-     * @param createdTime the createdTime to set
-     */
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
+	public void setViewCnt(Integer viewCnt) {
+		this.viewCnt = viewCnt;
+	}
 
-    /**
-     * @return Date return the updatedTime
-     */
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
+	public Integer getReplyCnt() {
+		return replyCnt;
+	}
 
-    /**
-     * @param updatedTime the updatedTime to set
-     */
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
+	public void setReplyCnt(Integer replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 
-    /**
-     * @return Integer return the likes
-     */
-    public Integer getLikes() {
-        return likes;
-    }
+	public Integer getLikes() {
+		return likes;
+	}
 
-    /**
-     * @param likes the likes to set
-     */
-    public void setLikes(Integer likes) {
-        this.likes = likes;
-    }
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
 
-    /**
-     * @return Integer return the counts
-     */
-    public Integer getCounts() {
-        return counts;
-    }
+	@Override
+	public String toString() {
+		return "Board [index=" + idx + ", title=" + title + ", content=" + content + ", category=" + category
+				+ ", id=" + id + ", createdDay=" + created_day + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt
+				+ ", likes=" + likes + "]";
+	}
+	
+	
+	
+	
+	
+//	private Integer no;
+//	
+//	@Column(name = "type")
+//	private String type;
+//	
+//	@Column(name = "title")
+//	private String title;
+//	
+//	@Column(name = "contents")
+//	private String contents;
+//	
+//	@Column(name = "member_no")
+//	private Integer memberNo;
+//	
+//	@Column(name = "created_time")
+//	private Date createdTime;
+//	
+//	@Column(name = "updated_time")
+//	private Date updatedTime;
+//	
+//	@Column(name = "like")
+//	private Integer likes;
+//	
+//	@Column(name = "counts")
+//	private Integer counts;
+	
+	// ---Getter/Setter ---
 
-    /**
-     * @param counts the counts to set
-     */
-    public void setCounts(Integer counts) {
-        this.counts = counts;
-    }
+//  /**
+//   * @return Integer return the no
+//   */
+//  public Integer getNo() {
+//      return no;
+//  }
+//
+//  /**
+//   * @param no the no to set
+//   */
+//  public void setNo(Integer no) {
+//      this.no = no;
+//  }
+//
+//  /**
+//   * @return String return the type
+//   */
+//  public String getType() {
+//      return type;
+//  }
+//
+//  /**
+//   * @param type the type to set
+//   */
+//  public void setType(String type) {
+//      this.type = type;
+//  }
+//
+//  /**
+//   * @return String return the title
+//   */
+//  public String getTitle() {
+//      return title;
+//  }
+//
+//  /**
+//   * @param title the title to set
+//   */
+//  public void setTitle(String title) {
+//      this.title = title;
+//  }
+//
+//  /**
+//   * @return String return the contents
+//   */
+//  public String getContents() {
+//      return contents;
+//  }
+//
+//  /**
+//   * @param contents the contents to set
+//   */
+//  public void setContents(String contents) {
+//      this.contents = contents;
+//  }
+//
+//  /**
+//   * @return Integer return the memberNo
+//   */
+//  public Integer getMemberNo() {
+//      return memberNo;
+//  }
+//
+//  /**
+//   * @param memberNo the memberNo to set
+//   */
+//  public void setMemberNo(Integer memberNo) {
+//      this.memberNo = memberNo;
+//  }
+//
+//  /**
+//   * @return Date return the createdTime
+//   */
+//  public Date getCreatedTime() {
+//      return createdTime;
+//  }
+//
+//  /**
+//   * @param createdTime the createdTime to set
+//   */
+//  public void setCreatedTime(Date createdTime) {
+//      this.createdTime = createdTime;
+//  }
+//
+//  /**
+//   * @return Date return the updatedTime
+//   */
+//  public Date getUpdatedTime() {
+//      return updatedTime;
+//  }
+//
+//  /**
+//   * @param updatedTime the updatedTime to set
+//   */
+//  public void setUpdatedTime(Date updatedTime) {
+//      this.updatedTime = updatedTime;
+//  }
+//
+//  /**
+//   * @return Integer return the likes
+//   */
+//  public Integer getLikes() {
+//      return likes;
+//  }
+//
+//  /**
+//   * @param likes the likes to set
+//   */
+//  public void setLikes(Integer likes) {
+//      this.likes = likes;
+//  }
+//
+//  /**
+//   * @return Integer return the counts
+//   */
+//  public Integer getCounts() {
+//      return counts;
+//  }
+//
+//  /**
+//   * @param counts the counts to set
+//   */
+//  public void setCounts(Integer counts) {
+//      this.counts = counts;
+//  }
+	
+
+
+
 
 }

@@ -5,7 +5,7 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
-import customAxios from 'src/ApiService';
+import customAxios from '../service/ApiService';
 
 const NotFound = () => {
   const [ip, setIp] = useState('');
