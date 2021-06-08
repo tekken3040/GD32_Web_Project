@@ -2,6 +2,7 @@ package com.GDJ32;
 
 import javax.sql.DataSource;
 
+import com.GDJ32.service.CustomProvider;
 import com.GDJ32.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,26 +35,34 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
+    @Autowired
     private final UserService userService;
     
     @Autowired
     DataSource dataSource;
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    CustomProvider customProvider;
+
+    // @Bean
+    // public PasswordEncoder getPasswordEncoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/users/login", "/users/signup", "/user").permitAll()
-                .antMatchers("/").hasRole("USER")
+                .antMatchers("/login", "/users/signup", "/user").permitAll()
+                // .antMatchers("/").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
             .and()
                 .formLogin()
-                    .loginPage("/users/login").defaultSuccessUrl("/").permitAll()
+                //.loginPage("/users/login").defaultSuccessUrl("/").permitAll()
+                    .loginPage("/login")
+					 .loginProcessingUrl("/login")
+					 .defaultSuccessUrl("/welcome")
+					// .failureUrl("/loginError")
             .and()
                 .logout()
                 .logoutSuccessUrl("/users/login")
@@ -82,10 +91,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         //     "select id, manager from gdj_member_detail " + 
         //     "where id=?"
         // ).passwordEncoder(new BCryptPasswordEncoder());
-        auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
-        auth.authenticationProvider(authenticationProvider());
+        // ##################################################################
+        // auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+        // auth.authenticationProvider(authenticationProvider());
+        auth.authenticationProvider(customProvider);
     }
-    
+    @Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		// auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+		auth.authenticationProvider(customProvider);
+	}
     @Bean
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -110,12 +125,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         return firewall;
     }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService);
-        auth.setPasswordEncoder(getPasswordEncoder());
-
-        return auth;
-    }
+    // @Bean
+    // public DaoAuthenticationProvider authenticationProvider() {
+    //     DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+    //     auth.setUserDetailsService(userService);
+    //     auth.setPasswordEncoder(getPasswordEncoder());
+// 
+    //     return auth;
+    // }
 }

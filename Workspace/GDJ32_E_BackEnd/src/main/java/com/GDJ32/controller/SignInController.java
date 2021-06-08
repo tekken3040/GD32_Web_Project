@@ -8,6 +8,7 @@ import com.GDJ32.vo.TestVo;
 import com.GDJ32.vo.UserInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,12 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class SignInController {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public SignInController(PasswordEncoder passwordEncoder)
-    {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    
+    // private final PasswordEncoder passwordEncoder;
+// 
+    // public SignInController(PasswordEncoder passwordEncoder)
+    // {
+    //     this.passwordEncoder = passwordEncoder;
+    // }
 
     @Autowired
     UserMapper userMapper;

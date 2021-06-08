@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @DynamicUpdate
 @Data
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class MemberDTO implements UserDetails{
     //#region Values
@@ -63,6 +63,9 @@ public class MemberDTO implements UserDetails{
     
     @Column(name = "birthday")
     private String birthday;
+
+    @Column(name = "enabled")
+    private int enabled;
     //#endregion
 
     //#region Getter, Setter
@@ -204,6 +207,14 @@ public class MemberDTO implements UserDetails{
      */
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getEnabled() {
+        return this.enabled;
     }
 
     @Override
