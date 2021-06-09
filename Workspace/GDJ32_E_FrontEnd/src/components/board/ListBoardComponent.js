@@ -13,18 +13,18 @@ const Category = {
 const ListBoardComponent = () => {    
     const history = useNavigate();
     const [pNum, setNum] = useState(1);
-    const [paging, setPage] = useState({});
+    // const [paging, setPage] = useState({});
     const [boards, setBoards] = useState([]);
 
     // 페이지가 로딩될 때, 글 목록만 가져오던 것을 , 페이징 객체도 같이 가져오도록 수정
     useEffect(() => {
         BoardService.getBoards(pNum).then((res) => {
             setNum(res.data.pagingData.currentPageNum);
-            setPage(res.data.pagingData);
+            // setPage(res.data.pagingData);
             setBoards(res.data.list);
         });
-    });
-    
+    }, []);
+    /*
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
     const listBoard = (pageNum) => {
         console.log("listBoard");
@@ -35,7 +35,7 @@ const ListBoardComponent = () => {
             setBoards(res.data.list);
         });
     }
-
+*/
     const getBoardCategory = (value) => {
         console.log("getBoardCategory");
         let name = "Not Defined";
@@ -63,7 +63,7 @@ const ListBoardComponent = () => {
         console.log(value);
         return value;
     }
-
+/*
     // 페이지 버튼을 표시하는 함수
     const viewPaging = () => {
         const pageNums = [];
@@ -134,14 +134,14 @@ const ListBoardComponent = () => {
             );
         }
     }
-
+*/
     // # 글 제목을 클릭 했을 때 글 상세보기 페이지로 이동해주는 함수정의
     const readBoard = (idx) => {
         console.log("readBoard event", idx);
         
         BoardService.getOneBoard(idx)
             .then(res => {
-                history(`/read-board/${idx}`);
+                // history(`/read-board/${idx}`);
                 console.log(res);
             })
             .catch(err => {
@@ -215,19 +215,19 @@ const ListBoardComponent = () => {
                 <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-center">
                         {
-                            isMoveToFirstPage()
+                            // isMoveToFirstPage()
                         }
                         {
-                            isPagingPrev()
+                            // isPagingPrev()
                         }
                         {
-                            viewPaging()
+                            // viewPaging()
                         }
                         {
-                            isPagingNext()
+                            // isPagingNext()
                         }
                         {
-                            isMoveToLastPage()
+                            // isMoveToLastPage()
                         }
                     </ul>
                 </nav>
