@@ -10,6 +10,7 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 import TimeManagement from 'src/pages/TimeManagement';
+import CreateBoardComponent from './components/board/CreateBoardComponent';
 
 const routes = [
   {
@@ -17,7 +18,16 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'mypage', element: <Mypage /> },
-      { path: 'board', element: <Board /> },
+      {
+        path: 'board',
+        element: <Board />,
+        children: [
+          {
+            path: '/create-board/:idx',
+            element: <CreateBoardComponent/>
+          }
+        ]
+      },
       { path: 'home', element: <Home /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
