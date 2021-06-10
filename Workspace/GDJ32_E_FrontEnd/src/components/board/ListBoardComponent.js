@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Button } from '@material-ui/core';
+import {
+    Box,
+    // Button,
+    Container
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
+import { Helmet } from 'react-helmet';
+import { Formik } from 'formik';
 import BoardService from '../../service/BoardService';
 
 const Category = {
@@ -91,11 +97,11 @@ const ListBoardComponent = () => {
     }
 
     // # 글 제목을 클릭 했을 때 글 상세보기 페이지로 이동해주는 함수정의
-    const readBoard = (event, idx) => {
+    const readBoard = (event) => {
         // console.log("readBoard event", idx);
-        // event.preventDefault();
-        console.log("###################", idx);
-        BoardService.getOneBoard(idx)
+        event.preventDefault();
+        console.log("###################", event.target.getAttribute('value'));
+        BoardService.getOneBoard(event.target.getAttribute('value'))
             .then(res => {
                 // history(`/read-board/${idx}`);
                 console.log(res);
@@ -109,65 +115,83 @@ const ListBoardComponent = () => {
     // this.props.history.push('이동할 링크'); -> 일반적
     // 사용자 토큰 정보나 결제 정보 또는 게시물의 일련번호 등 다음 페이지로 넘어갈 때 파라미터를 가지고 넘어가야할 때 push를 써서 이동할 때는 아래처럼 이용
     // this.props.history.push({pathname:'이동할 링크',state:{detail:전달할 파라미터}})
-    const createBoard = () => {
-        history("/create-board/_create");
-    }
+    // const createBoard = () => {
+    //     history("/create-board/_create");
+    // }
     return (
-        <div>
-            <h2 className="text-center">게시판 목록</h2>
-            <div className = "row">
-                <Button className="btn btn-primary" 
-                    onClick={createBoard}> 글 작성</Button>
-            </div>
-            <div className ="table" style={{ padding: "0 12px" }}>
-                <table className="table table-striped table-bordered">
-                    <colgroup>
-                        <col width="5%" />
-                        <col width="*" />
-                        <col width="50%" />
-                        <col width="*" />
-                        <col width="*" />
-                        <col width="*" />
-                        <col width="*" />
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>카테고리 </th>
-                            <th>제목</th>
-                            <th>작성자 </th>
-                            <th>작성일 </th>
-                            <th>조회수</th>
-                            <th>좋아요수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            boards.map(
-                                board => 
-                                <tr key = {board.idx}>
-                                    <td> {board.idx} </td>
-                                    <td> {getBoardCategory(board.category)} </td>
-                                        <td>
-                                            <Button onClick={readBoard} value={board.idx} name="idx">
-                                                {board.title}
-                                            </Button>
-                                        </td>
-                                    <td> {board.id} </td>
-                                    <td> {getBoardCreateDay(board.created_day)} </td>
-                                    <td> {board.viewCnt} </td>
-                                    <td> {board.likes} </td>
+        <>
+            <Helmet>
+                <title>게시판 목록</title>
+            </Helmet>
+            <Box
+              sx={{
+                backgroundColor: 'background.default',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                justifyContent: 'center'
+              }}
+            >
+            <Container maxWidth="sm">
+              <Formik>
+                        {() => (
+                  <Box>
+                    <div className ="table" style={{ padding: "0 12px" }} >
+                        <table className="table table-striped table-bordered">
+                            <colgroup>
+                                <col width="5%" />
+                                <col width="*" />
+                                <col width="50%" />
+                                <col width="*" />
+                                <col width="*" />
+                                <col width="*" />
+                                <col width="*" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>카테고리 </th>
+                                    <th>제목</th>
+                                    <th>작성자 </th>
+                                    <th>작성일 </th>
+                                    <th>조회수</th>
+                                    <th>좋아요수</th>
                                 </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
+                            </thead>
+                            <tbody>
+                                {
+                                    boards.map(
+                                        board => 
+                                        <tr key = {board.idx}>
+                                            <td> {board.idx} </td>
+                                            <td> {getBoardCategory(board.category)} </td>
+                                                <td>
+                                                    <a href="#" value={board.idx} onClick={(e) => readBoard(e)}>
+                                                        {board.title}
+                                                    </a>
+                                                </td>
+                                            <td> {board.id} </td>
+                                            <td> {getBoardCreateDay(board.created_day)} </td>
+                                            <td> {board.viewCnt} </td>
+                                            <td> {board.likes} </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                  </Box>
+                )}
+              </Formik>
+            </Container>
+        </Box>
+        <div>
             <div className={classes.root}>
                 <Typography>Page: {pNum}</Typography>
                 <Pagination count={paging.pageNumCountTotal} page={pNum} onChange={handleChange} value={pNum} name="pNum"/>
             </div>
         </div>
+    </>
     );
 }
 
