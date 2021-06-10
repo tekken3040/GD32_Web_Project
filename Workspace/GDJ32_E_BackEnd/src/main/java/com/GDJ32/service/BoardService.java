@@ -1,5 +1,7 @@
 package com.GDJ32.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 //import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,35 +39,40 @@ public class BoardService {
 	}
 	
 	// get paging boards data
-	public ResponseEntity<Map<String,Object>>  getPagingBoard(int p_num) {
+	public ResponseEntity<Map<String, Object>> getPagingBoard(int p_num, int objCnt, int pageCnt) {
 
 		log.info("getPagingBoard(int p_num)");
-		Map<String,Object> result = null;
-		
-		BoardPagingUtil pu = new BoardPagingUtil(p_num, 5, 5);
+		Map<String, Object> result = null;
+
+		BoardPagingUtil pu = new BoardPagingUtil(p_num, objCnt, pageCnt);
 		log.info("pu : " + pu);
-		log.info("pu {} ,{} , {} : " , pu.getObjectStartNum(), pu.getCurrentPageNum(), pu.getObjectCountPerPage());
-//		List<Board> list = boardRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
-//		Pageable pageable = PageRequest.of(pu.getObjectStartNum(), pu.getObjectCountPerPage());
-		Pageable pageable = PageRequest.of(pu.getCurrentPageNum()-1, pu.getObjectCountPerPage());
-		List<Board> list = boardRepository.findAll(pageable).getContent();
+		log.info("pu {} ,{} , {} : ", pu.getObjectStartNum(), pu.getCurrentPageNum(), pu.getObjectCountPerPage());
+		//		List<Board> list = boardRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
+		//		Pageable pageable = PageRequest.of(pu.getObjectStartNum(), pu.getObjectCountPerPage());
 		
+		Pageable pageable = PageRequest.of(pu.getCurrentPageNum() - 1, pu.getObjectCountPerPage(), Sort.by(Sort.Direction.DESC, "idx"));
+		List<Board> list = new ArrayList<>();
+		List<Board> tempList = boardRepository.findAll(pageable).getContent();
+		for (int i = 0; i < tempList.size(); i++)
+			list.add(tempList.get(i));
+
 		log.info("게시글 총수 : " + findAllCount());
 		pu.setObjectCountTotal(findAllCount());
-//		pu.setObjectCountTotal((int) boardRepository.count());
+		//		pu.setObjectCountTotal((int) boardRepository.count());
 		pu.setCalcForPaging();
-		
-		log.info("p_num : "+p_num);
+
+		log.info("p_num : " + p_num);
 		log.info(pu.toString());
-		
-//		if (list == null || list.size() == 0) {
-//			return null;
-//		}
-		
+
+		for (int i = 0; i < list.size(); i++)
+			System.out.println("================================" + list.get(i).getIdx());
+		Collections.sort(list);
+		for (int i = 0; i < list.size(); i++)
+			System.out.println("================================" + list.get(i).getIdx());
 		result = new HashMap<>();
 		result.put("pagingData", pu);
 		result.put("list", list);
-		
+
 		return ResponseEntity.ok(result);
 	}
 	
@@ -140,15 +150,4 @@ public class BoardService {
 		response.put("Deleted Board Data by id : ["+idx+"]", Boolean.TRUE);
 		return ResponseEntity.ok(response);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

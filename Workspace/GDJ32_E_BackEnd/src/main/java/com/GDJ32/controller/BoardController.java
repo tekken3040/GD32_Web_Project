@@ -46,14 +46,17 @@ public class BoardController {
 	
 	//페이징 작업할 수 있도록  get all board 수정본
 	@GetMapping(value="/board", produces = "application/json; charset=UTF-8") // @RequestMapping(Method=RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> getAllBoards(@RequestParam(value = "p_num",defaultValue = "1") int p_num){
+	public ResponseEntity<Map<String, Object>> getAllBoards(
+			@RequestParam(value = "p_num", defaultValue = "1") int p_num,
+			@RequestParam(value = "objCnt", defaultValue = "10") int objCnt, 
+			@RequestParam(value = "pageCnt", defaultValue = "10") int pageCnt){
 		log.info("### getAllBoards");
 		log.info("p_num :" + p_num);
 		//if(p_num == null || p_num <= 0) p_num =1;
 		
 //		if(p_num == 0 || p_num <= 0) p_num =1;
 		
-		return boardService.getPagingBoard(p_num);
+		return boardService.getPagingBoard(p_num, objCnt, pageCnt);
 	}
 	
 	// create board

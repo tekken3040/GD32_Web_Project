@@ -4,9 +4,9 @@ const BOARD_API_BASE_URL = "http://localhost:8080/api/board"; // spring boot api
 
 class BoardService {
 
-    getBoards = (pNum) => {
+    getBoards = (pNum, objCnt, pageCnt) => {
         console.log("getBoards");
-        return axios.get(`${BOARD_API_BASE_URL}?p_num=${pNum}`); // 표시할 페이지 번호를 파라미터로 설정하여 통신하도록 함
+        return axios.get(`${BOARD_API_BASE_URL}?p_num=${pNum}&objCnt=${objCnt}&pageCnt=${pageCnt}`); // 표시할 페이지 번호를 파라미터로 설정하여 통신하도록 함
     }
 
     createBoard = (board) => {

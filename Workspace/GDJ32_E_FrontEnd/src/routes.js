@@ -10,7 +10,7 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 import TimeManagement from 'src/pages/TimeManagement';
-import CreateBoardComponent from './components/board/CreateBoardComponent';
+// import CreateBoardComponent from './components/board/CreateBoardComponent';
 // import ListBoardComponent from './components/board/ListBoardComponent';
 
 const routes = [
@@ -23,12 +23,12 @@ const routes = [
         path: 'board',
         element: <Board />,
         // element: <ListBoardComponent/>,
-        children: [
-          {
-            path: '/create-board/:idx',
-            element: <CreateBoardComponent/>
-          }
-        ]
+        // children: [
+        //   {
+        //     path: '/create-board/:idx',
+        //     element: <CreateBoardComponent/>
+        //   }
+        // ]
       },
       { path: 'home', element: <Home /> },
       { path: 'products', element: <ProductList /> },

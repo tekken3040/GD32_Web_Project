@@ -1,5 +1,6 @@
 package com.GDJ32.vo;
 
+import java.util.Comparator;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import org.springframework.security.core.Transient;
 @Table(name = "gdj_board")
 @DynamicInsert
 @DynamicUpdate
-public class Board {
+public class Board implements Comparable<Board>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,10 +129,12 @@ public class Board {
 				+ ", id=" + id + ", createdDay=" + created_day + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt
 				+ ", likes=" + likes + "]";
 	}
-	
-	
-	
-	
+
+	@Override
+	public int compareTo(Board o) {
+
+		return o.getIdx().compareTo(this.getIdx());
+	}
 	
 //	private Integer no;
 //	

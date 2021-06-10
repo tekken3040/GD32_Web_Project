@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Pagination from '@material-ui/lab/Pagination';
 import BoardService from '../../service/BoardService';
 
 const Category = {
@@ -10,32 +13,55 @@ const Category = {
         MARCKET: {value: 3, name: "중고나라"}
 }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+        },
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
+
 const ListBoardComponent = () => {    
     const history = useNavigate();
     const [pNum, setNum] = useState(1);
-    // const [paging, setPage] = useState({});
+    const [paging, setPage] = useState({});
     const [boards, setBoards] = useState([]);
 
+    const classes = useStyles();
+    
     // 페이지가 로딩될 때, 글 목록만 가져오던 것을 , 페이징 객체도 같이 가져오도록 수정
     useEffect(() => {
-        BoardService.getBoards(pNum).then((res) => {
+        // getBoard호출시 페이지 번호 외에 한페이지에 표시할 게시물 수와 총 페이지 수량을 적어줘야함
+        BoardService.getBoards(pNum, 10, 10).then((res) => {
             setNum(res.data.pagingData.currentPageNum);
-            // setPage(res.data.pagingData);
+            setPage(res.data.pagingData);
             setBoards(res.data.list);
         });
     }, []);
-    /*
+    
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
     const listBoard = (pageNum) => {
-        console.log("listBoard");
+        console.log("listBoard", pageNum);
 
-        BoardService.getBoards(pageNum).then((res) => {
+        console.log("pageNumCountTotal : ", paging.pageNumCountTotal);
+        BoardService.getBoards(pageNum, 10, paging.pageNumCountTotal).then((res) => {
             setNum(res.data.pagingData.currentPageNum);
             setPage(res.data.pagingData);
             setBoards(res.data.list);
         });
     }
-*/
+
+    const handleChange = (event, value) => {
+        setNum(value);
+        console.log("value : ", value);
+        console.log(paging);
+        listBoard(value);
+        history('/app/board');
+    }
+
     const getBoardCategory = (value) => {
         console.log("getBoardCategory");
         let name = "Not Defined";
@@ -63,82 +89,12 @@ const ListBoardComponent = () => {
         console.log(value);
         return value;
     }
-/*
-    // 페이지 버튼을 표시하는 함수
-    const viewPaging = () => {
-        const pageNums = [];
-        console.log("viewPaging");
-        for (let i = paging.pageNumStart; i <= paging.pageNumEnd; i++ ) {
-            pageNums.push(i);
-        }
-        if (Object.keys(pageNums).length > 0) {
-            Object.keys(pageNums).forEach((page) => {
-                console.log("=========call viewPaging");
-                (
-                    <li className="page-item" key={page.toString()} >
-                        <Button className="page-link" onClick={listBoard(page)} aria-hidden="true" role="button">{page}</Button>
-                    </li>
-                );
-            })
-        }
-    }
 
-    // 이전 페이지 이동버튼을 출력하는 함수
-    const isPagingPrev = () => {
-        console.log("isPagingPrev : ", paging.prev);
-        if (paging.prev) {
-            console.log("=========call prevPaging");
-            (
-                <li className="page-item">
-                    <Button className="page-link" onClick = {listBoard( (paging.currentPageNum - 1) )} aria-hidden="true" role="button">Previous</Button>
-                </li>
-            );
-        }
-    }
-
-    // 다음 페이지 이동 버튼을 출력하는 함수
-    const isPagingNext = () => {
-        console.log("isPagingNext : ", paging.next);
-        if (paging.next) {
-            console.log("=========call nextPaging");
-            (
-                <li className="page-item">
-                    <Button className="page-link" onClick = {listBoard( (paging.currentPageNum + 1) )} aria-hidden="true" role="button">Next</Button>
-                </li>
-            )
-        }
-    }
-
-    // 첫페이지 이동 버튼을 출력하는 함수
-    const isMoveToFirstPage = () => {
-        console.log("isMoveToFirstPage : ", pNum);
-        if (pNum !== 1) {
-            console.log("=========call firstPaging");
-            (
-                <li className="page-item">
-                    <Button className="page-link" onClick = {listBoard(1)} aria-hidden="true" role="button">Move to First Page</Button>
-                </li>
-            );
-        }
-    }
-
-    // 마지막 페이지 이동 버튼을 출력하는 함수
-    const isMoveToLastPage = () => {
-        console.log("isMoveToLastPage : ", paging.pageNumCountTotal);
-        if (pNum !== paging.pageNumCountTotal) {
-            console.log("=========call lastPaging");
-            (
-                <li className="page-item">
-                    <Button className="page-link" onClick={listBoard((paging.pageNumCountTotal))} aria-hidden="true" role="button">LastPage({paging.pageNumCountTotal})</Button>
-                </li>
-            );
-        }
-    }
-*/
     // # 글 제목을 클릭 했을 때 글 상세보기 페이지로 이동해주는 함수정의
-    const readBoard = (idx) => {
-        console.log("readBoard event", idx);
-        
+    const readBoard = (event, idx) => {
+        // console.log("readBoard event", idx);
+        // event.preventDefault();
+        console.log("###################", idx);
         BoardService.getOneBoard(idx)
             .then(res => {
                 // history(`/read-board/${idx}`);
@@ -166,14 +122,14 @@ const ListBoardComponent = () => {
             <div className ="table" style={{ padding: "0 12px" }}>
                 <table className="table table-striped table-bordered">
                     <colgroup>
-                    <col width="5%" />
-                    <col width="*" />
-                    <col width="50%" />
-                    <col width="*" />
-                    <col width="*" />
-                    <col width="*" />
-                    <col width="*" />
-                </colgroup>
+                        <col width="5%" />
+                        <col width="*" />
+                        <col width="50%" />
+                        <col width="*" />
+                        <col width="*" />
+                        <col width="*" />
+                        <col width="*" />
+                    </colgroup>
                     <thead>
                         <tr>
                             <th>번호</th>
@@ -181,7 +137,6 @@ const ListBoardComponent = () => {
                             <th>제목</th>
                             <th>작성자 </th>
                             <th>작성일 </th>
-                            {/* <th>수정일</th> */}
                             <th>조회수</th>
                             <th>좋아요수</th>
                         </tr>
@@ -190,14 +145,11 @@ const ListBoardComponent = () => {
                         {
                             boards.map(
                                 board => 
-                                // <tr key = {board.index}>
                                 <tr key = {board.idx}>
-                                    {/* <td> {board.index} </td> */}
                                     <td> {board.idx} </td>
                                     <td> {getBoardCategory(board.category)} </td>
-                                        {/* <td> <a onClick = {() => this.readBoard(board.index)}>{board.title}</a></td> */}
                                         <td>
-                                            <Button onClick={readBoard(board.idx)} aria-hidden="true" role="button">
+                                            <Button onClick={readBoard} value={board.idx} name="idx">
                                                 {board.title}
                                             </Button>
                                         </td>
@@ -211,26 +163,9 @@ const ListBoardComponent = () => {
                     </tbody>
                 </table>
             </div>
-            <div className ="row">
-                <nav aria-label="Page navigation example">
-                    <ul className="pagination justify-content-center">
-                        {
-                            // isMoveToFirstPage()
-                        }
-                        {
-                            // isPagingPrev()
-                        }
-                        {
-                            // viewPaging()
-                        }
-                        {
-                            // isPagingNext()
-                        }
-                        {
-                            // isMoveToLastPage()
-                        }
-                    </ul>
-                </nav>
+            <div className={classes.root}>
+                <Typography>Page: {pNum}</Typography>
+                <Pagination count={paging.pageNumCountTotal} page={pNum} onChange={handleChange} value={pNum} name="pNum"/>
             </div>
         </div>
     );
