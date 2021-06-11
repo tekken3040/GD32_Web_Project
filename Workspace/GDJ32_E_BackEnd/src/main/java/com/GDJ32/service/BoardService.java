@@ -53,8 +53,10 @@ public class BoardService {
 		Pageable pageable = PageRequest.of(pu.getCurrentPageNum() - 1, pu.getObjectCountPerPage(), Sort.by(Sort.Direction.DESC, "idx"));
 		List<Board> list = new ArrayList<>();
 		List<Board> tempList = boardRepository.findAll(pageable).getContent();
-		for (int i = 0; i < tempList.size(); i++)
-			list.add(tempList.get(i));
+		for (int i = 0; i < tempList.size(); i++) {
+			if(tempList.get(i).getDeleted() == 0)
+				list.add(tempList.get(i));
+		}
 
 		log.info("게시글 총수 : " + findAllCount());
 		pu.setObjectCountTotal(findAllCount());
@@ -145,7 +147,9 @@ public class BoardService {
 	public ResponseEntity<Map<String, Boolean>> deleteBoard(Integer idx) {
 		Board board = boardRepository.findById(idx).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by index : ["+idx+"]"));
 		
-		boardRepository.delete(board);
+		// boardRepository.delete(board);
+		board.setDeleted(1);
+		boardRepository.save(board);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("Deleted Board Data by id : ["+idx+"]", Boolean.TRUE);
 		return ResponseEntity.ok(response);

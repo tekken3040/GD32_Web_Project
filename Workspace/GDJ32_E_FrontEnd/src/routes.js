@@ -10,7 +10,8 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 import TimeManagement from 'src/pages/TimeManagement';
-// import CreateBoardComponent from './components/board/CreateBoardComponent';
+import ReadBoardComponent from './components/board/ReadBoardComponent';
+import CreateBoardComponent from './components/board/CreateBoardComponent';
 // import ListBoardComponent from './components/board/ListBoardComponent';
 
 const routes = [
@@ -23,19 +24,14 @@ const routes = [
         path: 'board',
         element: <Board />,
         // element: <ListBoardComponent/>,
-        // children: [
-        //   {
-        //     path: '/create-board/:idx',
-        //     element: <CreateBoardComponent/>
-        //   }
-        // ]
       },
       { path: 'home', element: <Home /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
       { path: 'timemanagement', element: <TimeManagement /> },
-      { path: '*', element: <Navigate to="/404" /> }
-
+      { path: '*', element: <Navigate to="/404" /> },
+      { path: '/read-board/:idx', element: <ReadBoardComponent /> },
+      { path: '/create-board/:idx', element: <CreateBoardComponent /> },
     ]
   },
   {

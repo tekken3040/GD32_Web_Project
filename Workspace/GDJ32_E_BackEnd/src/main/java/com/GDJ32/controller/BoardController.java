@@ -37,13 +37,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	 //get all board 
-//	@GetMapping("/board") // @RequestMapping(Method=RequestMethod.GET)
-//	public List<Board> getAllBoards() {
-//		return boardService.getAllBoard();
-//	}
-	
-	
 	//페이징 작업할 수 있도록  get all board 수정본
 	@GetMapping(value="/board", produces = "application/json; charset=UTF-8") // @RequestMapping(Method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getAllBoards(
@@ -52,10 +45,7 @@ public class BoardController {
 			@RequestParam(value = "pageCnt", defaultValue = "10") int pageCnt){
 		log.info("### getAllBoards");
 		log.info("p_num :" + p_num);
-		//if(p_num == null || p_num <= 0) p_num =1;
-		
-//		if(p_num == 0 || p_num <= 0) p_num =1;
-		
+
 		return boardService.getPagingBoard(p_num, objCnt, pageCnt);
 	}
 	
@@ -73,42 +63,30 @@ public class BoardController {
 	}
 	
 	// get board
-//	@GetMapping("/board/{index}")
 	@GetMapping("/board/{idx}")
-//	public ResponseEntity<Board> getBoardByIndex(@PathVariable Integer index){
 	public ResponseEntity<Board> getBoardByIdx(@PathVariable Integer idx){
 		log.info("index");
 		
-//		return boardService.getBoard(index);
 		return boardService.getBoard(idx);
-//		return new ResponseEntity<Board>(boardService.getBoard(index),responseHeaders,HttpStatus.OK);
 	}
 	
 	// update board
-//	@PutMapping("/board/{index}")
 	@PutMapping("/board/{idx}")
-//	public ResponseEntity<Board> updateBoardByIndex(
 	public ResponseEntity<Board> updateBoardByIdx(
-//			@PathVariable("index") Integer index, @RequestBody Board board){
 		@PathVariable("idx") Integer idx, @RequestBody Board board){
 		
 		log.info("#####################################");
 		log.info("index : " + idx);
 		log.info("board : " + board.toString());
 		
-//		return boardService.updateBoard(index, board);
 		return boardService.updateBoard(idx, board);
 	}
 	
 	// delete board
-//	@DeleteMapping("/board/{index}")
 	@DeleteMapping("/board/{idx}")
-//	public ResponseEntity<Map<String, Boolean>> deleteBoardByIndex( @PathVariable Integer index) {
 	public ResponseEntity<Map<String, Boolean>> deleteBoardByIdx( @PathVariable Integer idx) {
-//		return boardService.deleteBoard(index);
 		return boardService.deleteBoard(idx);
 	}
-	
 }
 	
 	

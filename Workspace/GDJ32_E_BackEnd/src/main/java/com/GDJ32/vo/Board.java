@@ -37,7 +37,6 @@ public class Board implements Comparable<Board>{
 	@Column(name = "id")
 	private String id;
 	
-	
 	@Column(name = "created_day")
 	private Date created_day;
 	
@@ -50,7 +49,12 @@ public class Board implements Comparable<Board>{
 	@Column(name = "likes")
 	private Integer likes;
 	
-	
+	@Column(name = "account_type")
+	private Integer accountType;
+
+	@Column(name = "deleted")
+	private Integer deleted;
+
 	public Integer getIdx() {
 		return idx;
 	}
@@ -123,6 +127,21 @@ public class Board implements Comparable<Board>{
 		this.likes = likes;
 	}
 
+	public Integer getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(Integer accountType) {
+		this.accountType = accountType;
+	}
+
+	public Integer getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
+	}
 	@Override
 	public String toString() {
 		return "Board [index=" + idx + ", title=" + title + ", content=" + content + ", category=" + category
