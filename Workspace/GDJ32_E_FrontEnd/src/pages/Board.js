@@ -14,8 +14,8 @@ const BoardList = () => (
         py: 3
       }}
     >
-      <BoardListComponent/>
       <Container maxWidth={false}>
+        <BoardListComponent/>
         {}
       </Container>
     </Box>

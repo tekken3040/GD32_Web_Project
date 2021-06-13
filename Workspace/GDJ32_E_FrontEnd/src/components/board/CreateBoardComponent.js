@@ -10,13 +10,13 @@ const CreateBoardComponent = () => {
     const [pTitle, setTitle] = useState('');
     const [pContent, setContent] = useState('');
     const { state } = useLocation();
+    const pIdx = state.idx;
 
-    setIdx(state);
-    
     useEffect(() => {
-        if (idx !== '_create') {
+        setIdx(pIdx);
+        if (pIdx !== '_create') {
             
-            BoardService.getOneBoard(idx).then( (res) => {
+            BoardService.getOneBoard(pIdx).then( (res) => {
                 const board = res.data;
                 console.log(`board => ${JSON.stringify(board)}`);
                 setIdx(board.idx);
@@ -75,7 +75,7 @@ const CreateBoardComponent = () => {
             // BoardService.updateBoard(this.state.index, board).then(res => {
                 BoardService.updateBoard(idx, board).then(res => {
                     console.log(res);
-                history('app//board', {replace:true});
+                history('/app/board', {replace:true});
             })
         }   
     }
@@ -94,7 +94,6 @@ const CreateBoardComponent = () => {
                        {
                            getTitle()
                         }
-                        <h3 className="text-center">새글을 작성해주세요</h3>
                         <div className = "card-body">
                             <form>
                                 <div className = "form-group">

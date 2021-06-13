@@ -21,7 +21,7 @@ const routes = [
     children: [
       { path: 'mypage', element: <Mypage /> },
       {
-        path: 'board',
+        path: 'board/:idx',
         element: <Board />,
         // element: <ListBoardComponent/>,
       },

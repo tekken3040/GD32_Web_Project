@@ -62,7 +62,7 @@ const ListBoardComponent = () => {
         console.log("value : ", value);
         console.log(paging);
         listBoard(value);
-        history('/app/board');
+        history(`/app/board/${value}`, { replace: false });
     }
 
     const getBoardCategory = (value) => {
@@ -122,14 +122,17 @@ const ListBoardComponent = () => {
     // this.props.history.push({pathname:'이동할 링크',state:{detail:전달할 파라미터}})
     const createBoard = (event) => {
         event.preventDefault();
-        const pIdx = event.target.getAttribute("createApi");
-        history("/app/create-board/_create", { replace: false, state: { idx: pIdx} });
+        const pIdx = "_create";
+        history("/app/create-board/_create", {
+            replace: false,
+            state: { idx: pIdx }
+        });
     }
     return (
         <div>
             <h2 className="text-center">게시판 목록</h2>
             <div className = "row">
-                <Button className="btn btn-primary" createApi='_create' onClick={(e) => createBoard(e)}> 글 작성</Button>
+                <Button className="btn btn-primary" onClick={(e) => createBoard(e)}> 글 작성</Button>
             </div>
             <div className ="table" style={{ padding: "0 12px" }}>
                 <table className="table table-striped table-bordered">

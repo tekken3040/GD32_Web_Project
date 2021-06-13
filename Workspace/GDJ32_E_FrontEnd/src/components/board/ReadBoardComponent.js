@@ -6,7 +6,9 @@ import BoardService from '../../service/BoardService';
 const ReadBoardComponent = () => {
     const history = useNavigate();
     const { state } = useLocation();
-    const { idx, board } = state;
+    // const { pIdx, pBoard } = state;
+    const pIdx = state.idx;
+    const pBoard = state.board;
 
     // # 2. 페이지가 로딩될때 api와 통신하여 글 객체를 가져온다
     // useEffect(() => {
@@ -61,13 +63,19 @@ const ReadBoardComponent = () => {
     const goToUpdate = (event) => {
         event.preventDefault();
         // this.props.history.push(`/create-board/${this.state.index}`);
-        history(`/create-board/${idx}`);
+        history(`/app/create-board/${pIdx}`, {
+            replace: false,
+            state: {
+                idx: pIdx,
+                board: pBoard
+            }
+        });
     }
 
     const deleteView = async function () {
         if(window.confirm("정말로 글을 삭제하시겠습니까?")){
             // BoardService.deleteBoard(this.state.index).then( res => {
-                BoardService.deleteBoard(idx).then( res => {
+                BoardService.deleteBoard(pIdx).then( res => {
                 console.log("delete result => ", JSON.stringify(res));
                 if (res.status === 200) {
                     history('/app/board');
@@ -83,20 +91,20 @@ const ReadBoardComponent = () => {
             <div className = "card col-md-6 offset-md-3">
                 <h3 className ="text-center"> 상세페이지</h3>
                 <div className = "card-body">
-                        {returnBoardType(board.category)}      
+                        {returnBoardType(pBoard.category)}      
                         <div className = "row">      
-                            <h3> 제목 </h3> : {board.title}
+                            <h3> 제목 </h3> : {pBoard.title}
                         </div>
                         <div className = "row">
                             <h3> 내용 </h3> : <br/>
-                            <textarea value={board.content} readOnly/>
+                            <textarea value={pBoard.content} readOnly/>
                             {/* {this.state.board.createtDay} */}
                         </div >
                         {/* <div className = "row">
                             <label>   </label>: 
                             {this.state.board.memberNo}
                         </div> */}
-                        {returnDate(board.createdTime, board.updatedTime) }
+                        {returnDate(pBoard.createdTime, pBoard.updatedTime) }
                        
                         <Button className="btn btn-primary" onClick={goToList} style={{marginLeft:"10px"}}>글 목록으로 이동</Button>
                         <Button className="btn btn-info" onClick={goToUpdate} style={{marginLeft:"10px"}}>글 수정</Button>
