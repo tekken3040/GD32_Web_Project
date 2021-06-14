@@ -34,15 +34,16 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              id: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              id: Yup.string().max(255).required('아이디를 입력해주세요'),
+              password: Yup.string().max(255).required('비밀번호를 입력해주세요')
             })}
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              navigate('/app/home', { replace: true });
+              // navigate('http://localhost:3000/auth/login', { replace: true });
             }}
           >
             {({
@@ -60,14 +61,14 @@ const Login = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Sign in
+                    로그인
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Sign in on the internal platform
+                   플랫폼으로 로그인
                   </Typography>
                 </Box>
                 <Grid
@@ -87,7 +88,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Facebook
+                      페이스북으로 로그인하기
                     </Button>
                   </Grid>
                   <Grid
@@ -102,7 +103,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Google
+                      구글로 로그인하기
                     </Button>
                   </Grid>
                 </Grid>
@@ -117,27 +118,27 @@ const Login = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    or login with email address
+                    혹은 아이디로 로그인하기
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.id && errors.id)}
                   fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
+                  helperText={touched.id && errors.id}
+                  label="아이디"
                   margin="normal"
-                  name="email"
+                  name="id"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  type="text"
+                  value={values.id}
                   variant="outlined"
                 />
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label="비밀번호"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -155,7 +156,7 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    로그인
                   </Button>
                 </Box>
                 <Typography
@@ -169,7 +170,7 @@ const Login = () => {
                     to="/register"
                     variant="h6"
                   >
-                    Sign up
+                    회원 가입
                   </Link>
                 </Typography>
               </form>

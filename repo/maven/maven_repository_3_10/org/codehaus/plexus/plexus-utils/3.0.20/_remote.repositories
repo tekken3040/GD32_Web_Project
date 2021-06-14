@@ -1,3 +1,4 @@
-#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Mon May 08 10:41:00 KST 2017
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon May 24 11:51:07 KST 2021
 plexus-utils-3.0.20-sources.jar>central=
+plexus-utils-3.0.20.pom>central=

@@ -14,15 +14,20 @@ import com.GDJ32.vo.TestVo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api")	// /api로 도메인 매핑
+@Slf4j
 public class TestController {
 
 	@Autowired
 	TestService testService;
 
-	@PostMapping("/test")	// /test로 도메인 Post형식 매핑
+	@RequestMapping("/test")	// /test로 도메인 Post형식 매핑
 	public String ip(HttpServletRequest request) throws JsonProcessingException {
+		
+		log.info("api test");
 		// 요청받은 클라이언트 응답 반환
 		List<TestVo> testList = testService.selectTest();	// 받아온 db데이터를 담을 리스트
 		

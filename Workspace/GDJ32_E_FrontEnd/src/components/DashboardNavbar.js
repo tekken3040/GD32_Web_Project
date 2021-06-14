@@ -11,8 +11,9 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
+// import InputIcon from '@material-ui/icons/Input';
+import { BiCalendar } from 'react-icons/bi';
 import Logo from './Logo';
-
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
@@ -36,6 +37,14 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
             >
               <NotificationsIcon />
             </Badge>
+          </IconButton>
+          {/* <IconButton color="inherit">
+            <InputIcon />
+          </IconButton> */}
+        </Hidden>
+        <Hidden lgup>
+          <IconButton color="inherit">
+            <BiCalendar />
           </IconButton>
         </Hidden>
         <Hidden lgUp>
