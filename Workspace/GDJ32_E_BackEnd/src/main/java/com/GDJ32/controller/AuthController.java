@@ -99,9 +99,11 @@ public class AuthController {
 		log.info("jwt :" + jwt);
 		
 		log.info("username : " + loginRequest.getUsername());
-		//List<UserInfo> member = memberRepository.findById("");
+		UserInfo member = memberRepository.findById(loginRequest.getUsername());
 		
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+		member.setToken(jwt);
+		log.info(member.toString());
+		return ResponseEntity.ok(member);
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.POST)

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Data;
  
@@ -48,6 +49,6 @@ public class UserInfo {
     @Column(name = "enabled")
     private int enabled;
 
-  
-
+    @Transient
+    private String token;
 }

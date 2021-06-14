@@ -38,7 +38,7 @@ const Login = () => {
         console.log(res.statusText);
         console.log(res.data.accessToken);
         cookies.set("accessToken", res.data.accessToken);
-        cookies.set("test", res.data.test)
+        cookies.set("tokenType", res.data.tokenType)
         console.log(res.data)
         console.log(cookies.get("accessToken"));
         window.location.replace("/")
