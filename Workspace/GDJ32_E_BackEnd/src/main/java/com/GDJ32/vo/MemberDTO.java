@@ -22,7 +22,8 @@ import lombok.NoArgsConstructor;
 @DynamicUpdate
 @Data
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class MemberDTO {
     //#region Values
@@ -56,6 +57,9 @@ public class MemberDTO {
     
     @Column(name = "birthday")
     private String birthday;
+    
+    @Column(name = "enabled")
+    private int enabled;
     //#endregion
 
     //#region Getter, Setter
@@ -198,13 +202,20 @@ public class MemberDTO {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
-
-    @Override
-    public String toString() {
-        return "MemberDTO [address=" + address + ", address_detail=" + address_detail + ", birthday=" + birthday
-                + ", email=" + email + ", id=" + id + ", index=" + index + ", name=" + name + ", password=" + password
-                + ", phone=" + phone + ", zipcode=" + zipcode + "]";
-    }
-    //#endregion
     
+    /**
+     * @return String return the birthday
+     */
+    public int getEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param birthday the birthday to set
+     */
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+    
+    //#endregion
 }

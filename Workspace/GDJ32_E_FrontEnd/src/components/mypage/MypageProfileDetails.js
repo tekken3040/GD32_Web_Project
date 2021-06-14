@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import * as Yup from 'yup';
 import {
   Box,
   Button,
@@ -10,29 +11,31 @@ import {
   TextField
 } from '@material-ui/core';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+// const states = [
+//   {
+//     value: 'alabama',
+//     label: 'Alabama'
+//   },
+//   {
+//     value: 'new-york',
+//     label: 'New York'
+//   },
+//   {
+//     value: 'san-francisco',
+//     label: 'San Francisco'
+//   }
+// ];
 
 const MypageProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    id: 'aaaaa',
+    name: '홍길동',
+    zipcode: '0000',
+    address: '집주소',
+    addressDetail: '상세 주소',
+    phone: '000-0000-0000',
+    emailAddress: 'aaaa@aaaa.com',
+    birthDay: '2021-06-12'
   });
 
   const handleChange = (event) => {
@@ -45,7 +48,19 @@ const MypageProfileDetails = (props) => {
   return (
     <form
       autoComplete="off"
-      noValidate
+      validationschema={
+        Yup.object().shape({
+          id: Yup.string().max(255).required('ID is required'),
+          password: Yup.string().max(255).required('password is required'),
+          name: Yup.string().max(255).required('Name is required'),
+          zipcode: Yup.string().max(255).required('Zipode is required'),
+          address: Yup.string().max(255).required('Address is required'),
+          address_detail: Yup.string().max(255).required('Address detail is required'),
+          phone: Yup.string().max(255).required('Phone is required'),
+          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          birthDay: Yup.date().default(() => new Date())
+        })
+      }
       {...props}
     >
       <Card>
@@ -67,11 +82,29 @@ const MypageProfileDetails = (props) => {
               <TextField
                 fullWidth
                 helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
+                label="아이디"
+                name="id"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.id}
+                variant="outlined"
+                inputProps={{
+                  readOnly: true
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="이름"
+                name="name"
+                onChange={handleChange}
+                required
+                value={values.name}
                 variant="outlined"
               />
             </Grid>
@@ -82,11 +115,11 @@ const MypageProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Last name"
-                name="lastName"
+                label="우편 번호"
+                name="zipcode"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={values.zipcode}
                 variant="outlined"
               />
             </Grid>
@@ -97,11 +130,10 @@ const MypageProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
-                name="email"
+                label="기본 주소"
+                name="adress"
                 onChange={handleChange}
-                required
-                value={values.email}
+                value={values.address}
                 variant="outlined"
               />
             </Grid>
@@ -112,10 +144,25 @@ const MypageProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="상세 주소"
+                name="addressDetail"
+                onChange={handleChange}
+                required
+                value={values.addressDetail}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="전화 번호"
                 name="phone"
                 onChange={handleChange}
-                type="number"
+                required
                 value={values.phone}
                 variant="outlined"
               />
@@ -127,11 +174,11 @@ const MypageProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Country"
-                name="country"
+                label="이메일 주소"
+                name="emailAddress"
                 onChange={handleChange}
                 required
-                value={values.country}
+                value={values.emailAddress}
                 variant="outlined"
               />
             </Grid>
@@ -141,25 +188,16 @@ const MypageProfileDetails = (props) => {
               xs={12}
             >
               <TextField
+                InputLabelProps={{ shrink: true }}
                 fullWidth
-                label="Select State"
-                name="state"
+                label="birthDay"
+                name="birthDay"
                 onChange={handleChange}
                 required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
+                type="date"
+                value={values.birthDay}
                 variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
+              />
             </Grid>
           </Grid>
         </CardContent>
@@ -175,7 +213,7 @@ const MypageProfileDetails = (props) => {
             color="primary"
             variant="contained"
           >
-            Save details
+            저장하기
           </Button>
         </Box>
       </Card>

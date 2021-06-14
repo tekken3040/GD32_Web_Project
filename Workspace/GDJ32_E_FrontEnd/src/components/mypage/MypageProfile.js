@@ -64,7 +64,16 @@ const MypageProfile = (props) => (
         fullWidth
         variant="text"
       >
-        Upload picture
+        사진 변경하기
+      </Button>
+    </CardActions>
+    <CardActions>
+      <Button
+        color="primary"
+        fullWidth
+        variant="text"
+      >
+        비밀번호 변경하기
       </Button>
     </CardActions>
   </Card>
