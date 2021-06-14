@@ -52,7 +52,7 @@ const items = [
     title: '근태관리'
   },
   {
-    href: '/app/board',
+    href: '/app/board/1',
     icon: BiChalkboard,
     title: '게시판'
   },

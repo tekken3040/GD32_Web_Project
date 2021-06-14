@@ -83,7 +83,7 @@ const CreateBoardComponent = () => {
     // 글작성 취소 버튼이 클릭되었을때 글목록 페이지로 이동하는 함수선언
     const cancel = (event) => {
         event.preventDefault();
-        history('/app/board', {replace: true});
+        history('/app/board/1', {replace: true});
     }
 
     return (

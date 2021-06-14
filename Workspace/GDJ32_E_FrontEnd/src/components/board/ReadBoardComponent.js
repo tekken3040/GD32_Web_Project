@@ -57,7 +57,7 @@ const ReadBoardComponent = () => {
 
     // # 4. 글 목록으로 이동하는 함수를 정의 
     const goToList = () => {
-        history('/app/board', {replace: false});
+        history('/app/board/1', {replace: false});
     }
 
     const goToUpdate = (event) => {
@@ -78,7 +78,7 @@ const ReadBoardComponent = () => {
                 BoardService.deleteBoard(pIdx).then( res => {
                 console.log("delete result => ", JSON.stringify(res));
                 if (res.status === 200) {
-                    history('/app/board');
+                    history('/app/board/1');
                 } else {
                     alert("글 삭제가 실패했습니다.");
                 }
