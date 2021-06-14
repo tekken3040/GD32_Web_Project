@@ -5,6 +5,7 @@ import Mypage from 'src/pages/Mypage';
 import Board from 'src/pages/Board';
 import Home from 'src/pages/Home';
 import Login from 'src/pages/Login';
+import Logout from 'src/pages/logout';
 import NotFound from 'src/pages/NotFound';
 import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
@@ -31,6 +32,7 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: 'login', element: <Login /> },
+      { path: 'logout', element: <Logout /> },
       { path: 'register', element: <Register /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/app/home" /> },

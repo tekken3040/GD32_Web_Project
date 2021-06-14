@@ -24,13 +24,31 @@ import {
 } from 'react-feather';
 import { BiClipboard, BiBriefcaseAlt, BiChalkboard } from 'react-icons/bi';
 import InputIcon from '@material-ui/icons/Input';
+import Cookies from 'universal-cookie';
 import NavItem from './NavItem';
+
+
+const cookies = new Cookies();
+
+const islogin = {
+  href: '',
+  title: ''
+}
+
+if (cookies.get("accessToken") == null) {
+  islogin.href = '/login';
+  islogin.title = '로그인';
+} else {
+  islogin.href = '/logout';
+  islogin.title = '로그아웃';
+}
+
 
 const user = {
   href: '/app/mypage',
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  name: "aaa"
 
 };
 
@@ -41,6 +59,7 @@ const items = [
     title: '홈'
   },
   {
+    // href: '/app/mypage',
     href: '/app/mypage',
     icon: UserIcon,
     title: '마이페이지'
@@ -66,9 +85,9 @@ const items = [
   //   title: 'Settings'
   // },
   {
-    href: '/login',
+    href: islogin.href,
     icon: LockIcon,
-    title: '로그인'
+    title: islogin.title
   },
   {
     href: '/register',
@@ -144,12 +163,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             display: 'flex',
             flexDirection: 'column',
           }}
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            출근
+          color="primary"
+          component="a"
+          href="https://react-material-kit.devias.io"
+          variant="contained"
+        >
+          출근
         </Button>
         <Button
           sx={{
@@ -157,12 +176,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             width: 150,
             height: 40
           }}
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            퇴근
+          color="primary"
+          component="a"
+          href="https://react-material-kit.devias.io"
+          variant="contained"
+        >
+          퇴근
         </Button>
       </Box>
       <Divider />
@@ -180,15 +199,15 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       </Box>
       {/* <Box sx={{ flexGrow: 1 }} />  */}
       <Box
-         sx={{
+        sx={{
           backgroundColor: '#fff',
-          cursor : 'pointer',
+          cursor: 'pointer',
           p: 2,
-          pt : 40,
-         }}
+          pt: 40,
+        }}
       >
         <IconButton >
-            <InputIcon />
+          <InputIcon />
         </IconButton>
         {/* <Typography
           align="center"
@@ -241,7 +260,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </Drawer>
       </Hidden>
       <Hidden lgDown>
-       <Drawer
+        <Drawer
           anchor="left"
           open
           variant="persistent"

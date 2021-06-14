@@ -1,5 +1,8 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// import { useHistory } from "react-router";
+import React from 'react';
 import { Helmet } from 'react-helmet';
+// import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -12,10 +15,38 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import ApiService from '../ApiService';
+
+// const history = useHistory();
+
+const initialValues = {
+  id: '',
+  password: '',
+  name: '',
+  zipcode: '',
+  address: '',
+  address_detail: '',
+  phone: '',
+  email: '',
+  birthday: '',
+  policy: false
+};
 
 const Register = () => {
+
   const navigate = useNavigate();
 
+  function saveUser(user) {
+    ApiService.addUser(user)
+      .then(res => {
+        console.log(res.statusText);
+        // history.push('/');
+        navigate('/app/home', { replace: true });
+      })
+      .catch(err => {
+        console.log("saveUser() 에러", err);
+      });
+  }
   return (
     <>
       <Helmet>
@@ -32,18 +63,7 @@ const Register = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              id: '',
-              password: '',
-              name: '',
-              zipcode: '',
-              address: '',
-              address_detail: '',
-              phone: '',
-              email: '',
-              birthDay: '',
-              policy: false
-            }}
+            initialValues={initialValues}
             validationSchema={
               Yup.object().shape({
                 id: Yup.string().max(255).required('ID is required'),
@@ -54,12 +74,14 @@ const Register = () => {
                 address_detail: Yup.string().max(255).required('Address detail is required'),
                 phone: Yup.string().max(255).required('Phone is required'),
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                birthDay: Yup.date().default(() => new Date()),
+                birthday: Yup.date().default(() => new Date()),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              // navigate('/app/dashboard', { replace: true });
+              console.log(values);
+              saveUser(values);
             }}
           >
             {({
@@ -187,19 +209,20 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
-                  InputLabelProps={{shrink : true}}
-                  error={Boolean(touched.birthDay && errors.birthDay)}
+                  InputLabelProps={{ shrink: true }}
+                  error={Boolean(touched.birthday && errors.birthday)}
                   fullWidth
-                  helperText={touched.birthDay && errors.birthDay}
+                  helperText={touched.birthday && errors.birthday}
                   label="Birth Day"
                   margin="normal"
-                  name="birthDay"
+                  name="birthday"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="date"
-                  value={values.birthDay}
+                  value={values.birthday}
                   variant="outlined"
                 />
+                <pre>{JSON.stringify(values, null, 2)}</pre>
                 <Box
                   sx={{
                     alignItems: 'center',

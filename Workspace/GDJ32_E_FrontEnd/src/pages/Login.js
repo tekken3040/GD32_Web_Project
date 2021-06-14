@@ -1,4 +1,4 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -13,9 +13,46 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
+import ApiService from 'src/ApiService';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
+const initialValues = {
+  id: '',
+  password: ''
+}
+
+const errMassage = {
+  hidden: false,
+  Massage: '회원 정보가 잘못 입력되었습니다. 다시 입력해 주세요'
+}
 
 const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  function loginUser(user) {
+    ApiService.loginUser(user)
+      .then(res => {
+        console.log("res");
+        console.log(res.statusText);
+        console.log(res.data.accessToken);
+        cookies.set("accessToken", res.data.accessToken);
+        cookies.set("test", res.data.test)
+        console.log(res.data)
+        console.log(cookies.get("accessToken"));
+        window.location.replace("/")
+        // navigate('/', { replace: true });
+      })
+      .catch(err => {
+        console.log("login err : ", err);
+        alert("회원정보가 잘못되었습니다.");
+        errMassage.hidden = false;
+        cookies.remove("userId");
+        window.location.assign("/login")
+        // navigate('/', { replace: true });
+      });
+  }
 
   return (
     <>
@@ -33,17 +70,15 @@ const Login = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              id: '',
-              password: ''
-            }}
+            initialValues={{ initialValues }}
             validationSchema={Yup.object().shape({
-              id: Yup.string().max(255).required('아이디를 입력해주세요'),
-              password: Yup.string().max(255).required('비밀번호를 입력해주세요')
+              id: Yup.string().max(255).required('ID is required'),
+              password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/home', { replace: true });
-              // navigate('http://localhost:3000/auth/login', { replace: true });
+            onSubmit={(values) => {
+              // navigate('/app/dashboard', { replace: true });
+              console.log(values);
+              loginUser(values);
             }}
           >
             {({
@@ -61,14 +96,14 @@ const Login = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    로그인
+                    Sign in
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                   플랫폼으로 로그인
+                    Sign in on the internal platform
                   </Typography>
                 </Box>
                 <Grid
@@ -88,7 +123,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      페이스북으로 로그인하기
+                      Login with Facebook
                     </Button>
                   </Grid>
                   <Grid
@@ -103,7 +138,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      구글로 로그인하기
+                      Login with Google
                     </Button>
                   </Grid>
                 </Grid>
@@ -118,14 +153,14 @@ const Login = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    혹은 아이디로 로그인하기
+                    or login with ID
                   </Typography>
                 </Box>
                 <TextField
                   error={Boolean(touched.id && errors.id)}
                   fullWidth
                   helperText={touched.id && errors.id}
-                  label="아이디"
+                  label="ID"
                   margin="normal"
                   name="id"
                   onBlur={handleBlur}
@@ -138,7 +173,7 @@ const Login = () => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="비밀번호"
+                  label="Password"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -156,9 +191,13 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    로그인
+                    Sign in now
                   </Button>
                 </Box>
+                <Typography
+                  hidden={errMassage.hidden}
+                  color="red"
+                  value={errMassage.Massage} />
                 <Typography
                   color="textSecondary"
                   variant="body1"
@@ -170,7 +209,7 @@ const Login = () => {
                     to="/register"
                     variant="h6"
                   >
-                    회원 가입
+                    Sign up
                   </Link>
                 </Typography>
               </form>

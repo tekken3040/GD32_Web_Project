@@ -5,7 +5,7 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
-import customAxios from 'src/customAxios';
+import customAxios from 'src/ApiService';
 
 const NotFound = () => {
   const [ip, setIp] = useState('');
@@ -19,7 +19,7 @@ const NotFound = () => {
     () => {
       // 클라이언트의 IP주소를 알아내는 백엔드의 함수를 호출합니다.
       // customAxios('/ip', callback);
-      customAxios('/api/test', callback);
+      customAxios('/test', callback);
     }, []
   );
 
