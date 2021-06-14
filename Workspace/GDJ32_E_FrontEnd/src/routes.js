@@ -10,9 +10,9 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 import TimeManagement from 'src/pages/TimeManagement';
+import Calendar from 'src/pages/Calendar';
 import ReadBoardComponent from './components/board/ReadBoardComponent';
 import CreateBoardComponent from './components/board/CreateBoardComponent';
-// import ListBoardComponent from './components/board/ListBoardComponent';
 
 const routes = [
   {
@@ -32,6 +32,7 @@ const routes = [
       { path: '*', element: <Navigate to="/404" /> },
       { path: '/read-board/:idx', element: <ReadBoardComponent /> },
       { path: '/create-board/:idx', element: <CreateBoardComponent /> },
+      { path: 'calendar', element: <Calendar /> }
     ]
   },
   {

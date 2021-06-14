@@ -22,7 +22,8 @@ import {
   UserPlus as UserPlusIcon,
   // Users as UsersIcon
 } from 'react-feather';
-import { BiClipboard, BiBriefcaseAlt, BiChalkboard } from 'react-icons/bi';
+// import { BiClipboard, BiChalkboard, BiCalendar, BiBriefcaseAlt } from 'react-icons/bi';
+import { BiChalkboard, BiCalendar, BiBriefcaseAlt } from 'react-icons/bi';
 import InputIcon from '@material-ui/icons/Input';
 import NavItem from './NavItem';
 
@@ -51,15 +52,20 @@ const items = [
     title: '근태관리'
   },
   {
-    href: '/app/board/1',
+    href: '/app/board',
     icon: BiChalkboard,
     title: '게시판'
   },
   {
-    href: '/app/products',
-    icon: BiClipboard,
-    title: '전자결재'
+    href: '/app/calendar',
+    icon: BiCalendar,
+    title: '캘린더'
   },
+  // {
+  //   href: '/app/products',
+  //   icon: BiClipboard,
+  //   title: '전자결재'
+  // },
   // {
   //   href: '/app/settings',
   //   icon: SettingsIcon,
