@@ -54,7 +54,7 @@ public class BoardService {
 		List<Board> list = new ArrayList<>();
 		List<Board> tempList = boardRepository.findAll(pageable).getContent();
 		for (int i = 0; i < tempList.size(); i++) {
-			if(tempList.get(i).getDeleted() == 0)
+			// if(tempList.get(i).getDeleted() == 0)
 				list.add(tempList.get(i));
 		}
 
@@ -66,11 +66,7 @@ public class BoardService {
 		log.info("p_num : " + p_num);
 		log.info(pu.toString());
 
-		for (int i = 0; i < list.size(); i++)
-			System.out.println("================================" + list.get(i).getIdx());
 		Collections.sort(list);
-		for (int i = 0; i < list.size(); i++)
-			System.out.println("================================" + list.get(i).getIdx());
 		result = new HashMap<>();
 		result.put("pagingData", pu);
 		result.put("list", list);

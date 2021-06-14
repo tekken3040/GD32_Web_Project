@@ -69,13 +69,13 @@ const CreateBoardComponent = () => {
             if(idx === '_create'){
                 BoardService.createBoard(board).then(res => {
                     console.log(res);
-              history('/app/board', {replace:true});
+              history('/app/board/1', {replace:true});
             });
         } else {
             // BoardService.updateBoard(this.state.index, board).then(res => {
                 BoardService.updateBoard(idx, board).then(res => {
                     console.log(res);
-                history('/app/board', {replace:true});
+                history(`/app/board/1`, {replace:true});
             })
         }   
     }

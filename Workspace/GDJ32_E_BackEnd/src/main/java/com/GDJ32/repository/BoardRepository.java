@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public interface BoardRepository extends PagingAndSortingRepository<Board, Integ
 	
 	Iterable<Board> findAll();
 	
-	
+	@Query(value = "SELECT * FROM gdj_board WHERE NOT deleted IN ('1')", nativeQuery = true)
 	Page<Board> findAll(Pageable pageable);
 
 }
