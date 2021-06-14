@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     Button,
 } from '@material-ui/core';
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ListBoardComponent = () => {    
     const history = useNavigate();
+    const { state } = useLocation();
     const [pNum, setNum] = useState(1);
     const [paging, setPage] = useState({});
     const [boards, setBoards] = useState([]);
@@ -49,6 +50,13 @@ const ListBoardComponent = () => {
     const listBoard = (pageNum) => {
         console.log("listBoard", pageNum);
 
+        if (state !== null)
+        {
+            setNum(state.num);
+            setPage(state.pPaging);
+            setBoards(state.pBoard);
+        }
+
         console.log("pageNumCountTotal : ", paging.pageNumCountTotal);
         BoardService.getBoards(pageNum, 10, paging.pageNumCountTotal).then((res) => {
             setNum(res.data.pagingData.currentPageNum);
@@ -61,8 +69,15 @@ const ListBoardComponent = () => {
         setNum(value);
         console.log("value : ", value);
         console.log(paging);
+        history(`/app/board/${value}`, {
+            replace: false,
+            state: {
+                num: pNum,
+                pPaging: paging,
+                pBoard: boards
+            }
+        });
         listBoard(value);
-        history(`/app/board/${value}`, { replace: false });
     }
 
     const getBoardCategory = (value) => {
@@ -104,7 +119,7 @@ const ListBoardComponent = () => {
                 console.log(res);
                 console.log(`/read-board/${res.data.idx}`);
                 history(`/app/read-board/${idx}`, {
-                    replace: false,
+                    replace: true,
                     state: {
                         idx: res.data.idx,
                         board: res.data
@@ -124,7 +139,7 @@ const ListBoardComponent = () => {
         event.preventDefault();
         const pIdx = "_create";
         history("/app/create-board/_create", {
-            replace: false,
+            replace: true,
             state: { idx: pIdx }
         });
     }

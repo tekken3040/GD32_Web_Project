@@ -22,7 +22,7 @@ const routes = [
       { path: 'mypage', element: <Mypage /> },
       {
         path: 'board/:idx',
-        element: <Board />,
+        element: <Board />
         // element: <ListBoardComponent/>,
       },
       { path: 'home', element: <Home /> },

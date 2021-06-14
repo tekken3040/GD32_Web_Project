@@ -57,14 +57,14 @@ const ReadBoardComponent = () => {
 
     // # 4. 글 목록으로 이동하는 함수를 정의 
     const goToList = () => {
-        history('/app/board/1', {replace: false});
+        history('/app/board/1', {replace: true});
     }
 
     const goToUpdate = (event) => {
         event.preventDefault();
         // this.props.history.push(`/create-board/${this.state.index}`);
         history(`/app/create-board/${pIdx}`, {
-            replace: false,
+            replace: true,
             state: {
                 idx: pIdx,
                 board: pBoard

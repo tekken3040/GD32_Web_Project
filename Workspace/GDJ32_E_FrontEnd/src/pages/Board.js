@@ -16,7 +16,6 @@ const BoardList = () => (
     >
       <Container maxWidth={false}>
         <BoardListComponent/>
-        {}
       </Container>
     </Box>
   </>
