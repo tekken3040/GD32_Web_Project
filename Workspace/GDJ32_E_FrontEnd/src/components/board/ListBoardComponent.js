@@ -17,10 +17,10 @@ import BoardService from '../../service/BoardService';
 // import '../../css/ListBoardComponent.css';
 
 const Category = {
-        NOTICE: {value: 0, name: "공지사항"},
-        FREEBOARD: {value: 1, name: "자유게시판"},
-        STORAGE: {value: 2, name: "자료실"},
-        MARCKET: {value: 3, name: "중고나라"}
+    NOTICE: { value: 0, name: "공지사항" },
+    FREEBOARD: { value: 1, name: "자유게시판" },
+    STORAGE: { value: 2, name: "자료실" },
+    MARCKET: { value: 3, name: "중고나라" }
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -41,14 +41,14 @@ const PaginationStyle = withStyles({
     }
 })(Pagination);
 
-const ListBoardComponent = () => {    
+const ListBoardComponent = () => {
     const history = useNavigate();
     const [pNum, setNum] = useState(1);
     const [paging, setPage] = useState({});
     const [boards, setBoards] = useState([]);
 
     const classes = useStyles();
-    
+
     // 페이지가 로딩될 때, 글 목록만 가져오던 것을 , 페이징 객체도 같이 가져오도록 수정
     useEffect(() => {
         // getBoard호출시 페이지 번호 외에 한페이지에 표시할 게시물 수와 총 페이지 수량을 적어줘야함
@@ -60,11 +60,11 @@ const ListBoardComponent = () => {
             console.log("pNum : ", pNum);
         });
     }, [pNum]);
-    
+
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
     // const listBoard = (pageNum) => {
     //     console.log("listBoard", pageNum);
-// 
+    // 
     //     console.log("pageNumCountTotal : ", paging.pageNumCountTotal);
     //     BoardService.getBoards(pageNum, 10, paging.pageNumCountTotal).then((res) => {
     //         setNum(res.data.pagingData.currentPageNum);
@@ -86,7 +86,7 @@ const ListBoardComponent = () => {
     const getBoardCategory = (value) => {
         console.log("getBoardCategory");
         let name = "Not Defined";
-        switch(value) {
+        switch (value) {
             case Category.NOTICE.value:
                 name = Category.NOTICE.name;
                 break;
@@ -130,7 +130,7 @@ const ListBoardComponent = () => {
                 });
             })
             .catch(err => {
-                console.log(`getBoard err : ${ err }`);
+                console.log(`getBoard err : ${err}`);
             });
     }
 
@@ -149,11 +149,11 @@ const ListBoardComponent = () => {
     return (
         <Box>
             <h2 className="text-center">게시판 목록</h2>
-            <br/>
-            <Box className = "row">
-                <Button variant="contained" color="primary" className="btn btn-primary" startIcon={<CreateOutlinedIcon/>} onClick={(e) => createBoard(e)}> 글 작성</Button>
+            <br />
+            <Box className="row">
+                <Button variant="contained" color="primary" className="btn btn-primary" startIcon={<CreateOutlinedIcon />} onClick={(e) => createBoard(e)}> 글 작성</Button>
             </Box>
-            <Box className ="table" style={{ padding: "0 12px" }}>
+            <Box className="table" style={{ padding: "0 12px" }}>
                 <Table className="table table-striped table-bordered">
                     <colgroup>
                         <col width="*" />
@@ -178,31 +178,31 @@ const ListBoardComponent = () => {
                     <TableBody>
                         {
                             boards.map(
-                                board => 
-                                <TableRow key = {board.idx}>
-                                    <TableCell align="center"> {board.idx} </TableCell>
-                                    <TableCell align="center"> {getBoardCategory(board.category)} </TableCell>
+                                board =>
+                                    <TableRow key={board.idx}>
+                                        <TableCell align="center"> {board.idx} </TableCell>
+                                        <TableCell align="center"> {getBoardCategory(board.category)} </TableCell>
                                         <TableCell>
                                             <a href="#" value={board.idx} onClick={(e) => readBoard(e)}>
                                                 {board.title}
                                             </a>
                                         </TableCell>
-                                    <TableCell align="center"> {board.id} </TableCell>
-                                    <TableCell align="center"> {getBoardCreateDay(board.createtDay)} </TableCell>
-                                    <TableCell align="center"> {board.viewCnt} </TableCell>
-                                    <TableCell align="center"> {board.likes} </TableCell>
-                                </TableRow>
+                                        <TableCell align="center"> {board.id} </TableCell>
+                                        <TableCell align="center"> {getBoardCreateDay(board.createtDay)} </TableCell>
+                                        <TableCell align="center"> {board.viewCnt} </TableCell>
+                                        <TableCell align="center"> {board.likes} </TableCell>
+                                    </TableRow>
                             )
                         }
                     </TableBody>
                 </Table>
             </Box>
             <Box className={classes.root}>
-                <br/>
+                <br />
                 <Typography>Page: {pNum}
-                    <br/>
+                    <br />
                     <PaginationStyle count={paging.pageNumCountTotal} page={pNum} onChange={handleChange} value={pNum} name="pNum"
-                        boundaryCount={1} siblingCount={3}/>
+                        boundaryCount={1} siblingCount={3} />
                 </Typography>
             </Box>
         </Box>

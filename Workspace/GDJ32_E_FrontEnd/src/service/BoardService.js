@@ -11,9 +11,9 @@ class BoardService {
 
     createBoard = (board) => {
         console.log("createBoards");
-        return axios.post(BOARD_API_BASE_URL,board);
+        return axios.post(BOARD_API_BASE_URL, board);
     }
-    
+
     // getOneBoard(index){
     //     console.log("readBoards: "+index);
     //     return axios.get(BOARD_API_BASE_URL + "/" + index);
