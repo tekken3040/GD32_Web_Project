@@ -66,16 +66,16 @@ const Register = () => {
             initialValues={initialValues}
             validationSchema={
               Yup.object().shape({
-                id: Yup.string().max(255).required('ID is required'),
-                password: Yup.string().max(255).required('password is required'),
-                name: Yup.string().max(255).required('Name is required'),
-                zipcode: Yup.string().max(255).required('Zipode is required'),
-                address: Yup.string().max(255).required('Address is required'),
-                address_detail: Yup.string().max(255).required('Address detail is required'),
-                phone: Yup.string().max(255).required('Phone is required'),
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                id: Yup.string().max(255).required('아아디를 입력해 주세요'),
+                password: Yup.string().max(255).required('비밀번호를 입력해 주세요'),
+                name: Yup.string().max(255).required('이름을 입력해 주세요'),
+                zipcode: Yup.string().max(255).required('우편번호를 입력해 주세요'),
+                address: Yup.string().max(255).required('주소를 입력해 주세요'),
+                address_detail: Yup.string().max(255).required('상세 주고를 입력해 주세요'),
+                phone: Yup.string().max(255).required('전화번호를 입력해 주세요'),
+                email: Yup.string().email('유효한 이메일이 아닙니다').max(255).required('이메일을 입력해 주세요'),
                 birthday: Yup.date().default(() => new Date()),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                policy: Yup.boolean().oneOf([true], '체크해주세요')
               })
             }
             onSubmit={(values) => {
@@ -99,21 +99,14 @@ const Register = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Create new account
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    variant="body2"
-                  >
-                    Use your email to create new account
+                    회원 가입
                   </Typography>
                 </Box>
                 <TextField
                   error={Boolean(touched.id && errors.id)}
                   fullWidth
                   helperText={touched.id && errors.id}
-                  label="ID"
+                  label="아이디"
                   margin="normal"
                   name="id"
                   onBlur={handleBlur}
@@ -125,7 +118,7 @@ const Register = () => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label="비밀번호"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -138,7 +131,7 @@ const Register = () => {
                   error={Boolean(touched.name && errors.name)}
                   fullWidth
                   helperText={touched.name && errors.name}
-                  label="Name"
+                  label="이름"
                   margin="normal"
                   name="name"
                   onBlur={handleBlur}
@@ -150,7 +143,7 @@ const Register = () => {
                   error={Boolean(touched.zipcode && errors.zipcode)}
                   fullWidth
                   helperText={touched.zipcode && errors.zipcode}
-                  label="Zipcode"
+                  label="우편번호"
                   margin="normal"
                   name="zipcode"
                   onBlur={handleBlur}
@@ -162,7 +155,7 @@ const Register = () => {
                   error={Boolean(touched.address && errors.address)}
                   fullWidth
                   helperText={touched.address && errors.address}
-                  label="Address"
+                  label="주소"
                   margin="normal"
                   name="address"
                   onBlur={handleBlur}
@@ -174,7 +167,7 @@ const Register = () => {
                   error={Boolean(touched.address_detail && errors.address_detail)}
                   fullWidth
                   helperText={touched.address_detail && errors.address_detail}
-                  label="Address detail"
+                  label="상세 주소"
                   margin="normal"
                   name="address_detail"
                   onBlur={handleBlur}
@@ -186,7 +179,7 @@ const Register = () => {
                   error={Boolean(touched.phone && errors.phone)}
                   fullWidth
                   helperText={touched.phone && errors.phone}
-                  label="Phone"
+                  label="전화번호"
                   margin="normal"
                   name="phone"
                   onBlur={handleBlur}
@@ -199,7 +192,7 @@ const Register = () => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="이메일"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -213,7 +206,7 @@ const Register = () => {
                   error={Boolean(touched.birthday && errors.birthday)}
                   fullWidth
                   helperText={touched.birthday && errors.birthday}
-                  label="Birth Day"
+                  label="생년월일"
                   margin="normal"
                   name="birthday"
                   onBlur={handleBlur}
@@ -222,7 +215,6 @@ const Register = () => {
                   value={values.birthday}
                   variant="outlined"
                 />
-                <pre>{JSON.stringify(values, null, 2)}</pre>
                 <Box
                   sx={{
                     alignItems: 'center',
@@ -239,7 +231,7 @@ const Register = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    I have read the
+                    확인했습니다.
                     {' '}
                     <Link
                       color="primary"
@@ -248,7 +240,7 @@ const Register = () => {
                       underline="always"
                       variant="h6"
                     >
-                      Terms and Conditions
+                      이용약관
                     </Link>
                   </Typography>
                 </Box>
@@ -266,21 +258,21 @@ const Register = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign up now
+                    회원가입
                   </Button>
                 </Box>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Have an account?
+                  이미 계정이 있습니까?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/login"
                     variant="h6"
                   >
-                    Sign in
+                    로그인
                   </Link>
                 </Typography>
               </form>

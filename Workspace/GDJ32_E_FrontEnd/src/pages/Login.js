@@ -41,7 +41,7 @@ const Login = () => {
         cookies.set("tokenType", res.data.tokenType)
         console.log(res.data)
         console.log(cookies.get("accessToken"));
-        window.location.replace("/")
+        // window.location.replace("/")
         // navigate('/', { replace: true });
       })
       .catch(err => {
@@ -72,8 +72,8 @@ const Login = () => {
           <Formik
             initialValues={{ initialValues }}
             validationSchema={Yup.object().shape({
-              id: Yup.string().max(255).required('ID is required'),
-              password: Yup.string().max(255).required('Password is required')
+              id: Yup.string().max(255).required('아이디를 입력해 주세요'),
+              password: Yup.string().max(255).required('비밀번호를 입력해 주세요')
             })}
             onSubmit={(values) => {
               // navigate('/app/dashboard', { replace: true });
@@ -96,14 +96,7 @@ const Login = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Sign in
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    variant="body2"
-                  >
-                    Sign in on the internal platform
+                    로그인
                   </Typography>
                 </Box>
                 <Grid
@@ -123,7 +116,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Facebook
+                      페이스북 계정으로 로그인
                     </Button>
                   </Grid>
                   <Grid
@@ -138,7 +131,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Google
+                      구글 계정으로 로그인
                     </Button>
                   </Grid>
                 </Grid>
@@ -153,14 +146,14 @@ const Login = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    or login with ID
+                    혹은 일반 아이디로 로그인
                   </Typography>
                 </Box>
                 <TextField
                   error={Boolean(touched.id && errors.id)}
                   fullWidth
                   helperText={touched.id && errors.id}
-                  label="ID"
+                  label="아이디"
                   margin="normal"
                   name="id"
                   onBlur={handleBlur}
@@ -173,7 +166,7 @@ const Login = () => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label="비밀번호"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -191,7 +184,7 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    로그인
                   </Button>
                 </Box>
                 <Typography
@@ -202,14 +195,14 @@ const Login = () => {
                   color="textSecondary"
                   variant="body1"
                 >
-                  Don&apos;t have an account?
+                  아직 계정이 없습니까?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/register"
                     variant="h6"
                   >
-                    Sign up
+                    회원 가입
                   </Link>
                 </Typography>
               </form>
