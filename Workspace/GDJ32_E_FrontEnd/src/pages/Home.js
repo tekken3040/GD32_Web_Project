@@ -5,6 +5,13 @@ import {
 } from '@material-ui/core';
 import MyRoom from 'src/components/home/MyRoom';
 
+const styles = {
+  backContainer: {
+    backgroundImage: 'url(https://github.com/tekken3040/testRepos/blob/master/4.png?raw=true)',
+    backgroundSize: 'cover'
+  }
+};
+
 const Home = () => (
   <>
     <Helmet>
@@ -14,11 +21,13 @@ const Home = () => (
       sx={{
         backgroundColor: 'background.default',
         minHeight: '100%',
-        py: 3
+        py: 3,
+        backgroundImage: new URL('https://github.com/tekken3040/testRepos/blob/master/4.png?raw=true')
       }}
+      style={styles.backContainer}
     >
       <Container maxWidth={false}>
-        <MyRoom />
+        <MyRoom/>
       </Container>
     </Box>
   </>

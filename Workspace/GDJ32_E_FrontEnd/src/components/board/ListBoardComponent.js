@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
     Button,
     Box,
@@ -43,10 +43,15 @@ const PaginationStyle = withStyles({
 
 const ListBoardComponent = () => {    
     const history = useNavigate();
-    const [pNum, setNum] = useState(1);
+    const { state } = useLocation();
+    const [pNum, setNum] = useState(() => {
+        if (state != null)
+            return state.pIdx;
+        
+            return 1;
+    });
     const [paging, setPage] = useState({});
     const [boards, setBoards] = useState([]);
-
     const classes = useStyles();
     
     // 페이지가 로딩될 때, 글 목록만 가져오던 것을 , 페이징 객체도 같이 가져오도록 수정
@@ -59,7 +64,7 @@ const ListBoardComponent = () => {
             console.log(res.data.list);
             console.log("pNum : ", pNum);
         });
-    }, [pNum]);
+    }, [state]);
     
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
     // const listBoard = (pageNum) => {
@@ -79,6 +84,9 @@ const ListBoardComponent = () => {
         console.log(paging);
         history(`/app/board/${value}`, {
             replace: false,
+            state: {
+                pIdx: pNum
+            }
         });
         // listBoard(value);
     }
