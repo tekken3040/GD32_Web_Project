@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     Button,
+    Box,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import BoardService from '../../service/BoardService';
+// import '../../css/ListBoardComponent.css';
 
 const Category = {
         NOTICE: {value: 0, name: "공지사항"},
@@ -16,19 +24,25 @@ const Category = {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2),
+
+    root: {
+        '& > * + *': {
+            marginTop: theme.spacing(2),
         },
-    '& > *': {
-      margin: theme.spacing(1),
+        '& > *': {
+            margin: theme.spacing(1),
+        },
     },
-  },
 }));
+
+const PaginationStyle = withStyles({
+    ul: {
+        justifyContent: 'center',
+    }
+})(Pagination);
 
 const ListBoardComponent = () => {    
     const history = useNavigate();
-    const { state } = useLocation();
     const [pNum, setNum] = useState(1);
     const [paging, setPage] = useState({});
     const [boards, setBoards] = useState([]);
@@ -43,27 +57,21 @@ const ListBoardComponent = () => {
             setPage(res.data.pagingData);
             setBoards(res.data.list);
             console.log(res.data.list);
+            console.log("pNum : ", pNum);
         });
-    }, []);
+    }, [pNum]);
     
     // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
-    const listBoard = (pageNum) => {
-        console.log("listBoard", pageNum);
-
-        if (state !== null)
-        {
-            setNum(state.num);
-            setPage(state.pPaging);
-            setBoards(state.pBoard);
-        }
-
-        console.log("pageNumCountTotal : ", paging.pageNumCountTotal);
-        BoardService.getBoards(pageNum, 10, paging.pageNumCountTotal).then((res) => {
-            setNum(res.data.pagingData.currentPageNum);
-            setPage(res.data.pagingData);
-            setBoards(res.data.list);
-        });
-    }
+    // const listBoard = (pageNum) => {
+    //     console.log("listBoard", pageNum);
+// 
+    //     console.log("pageNumCountTotal : ", paging.pageNumCountTotal);
+    //     BoardService.getBoards(pageNum, 10, paging.pageNumCountTotal).then((res) => {
+    //         setNum(res.data.pagingData.currentPageNum);
+    //         setPage(res.data.pagingData);
+    //         setBoards(res.data.list);
+    //     });
+    // }
 
     const handleChange = (event, value) => {
         setNum(value);
@@ -71,13 +79,8 @@ const ListBoardComponent = () => {
         console.log(paging);
         history(`/app/board/${value}`, {
             replace: false,
-            state: {
-                num: pNum,
-                pPaging: paging,
-                pBoard: boards
-            }
         });
-        listBoard(value);
+        // listBoard(value);
     }
 
     const getBoardCategory = (value) => {
@@ -144,15 +147,16 @@ const ListBoardComponent = () => {
         });
     }
     return (
-        <div>
+        <Box>
             <h2 className="text-center">게시판 목록</h2>
-            <div className = "row">
-                <Button className="btn btn-primary" onClick={(e) => createBoard(e)}> 글 작성</Button>
-            </div>
-            <div className ="table" style={{ padding: "0 12px" }}>
-                <table className="table table-striped table-bordered">
+            <br/>
+            <Box className = "row">
+                <Button variant="contained" color="primary" className="btn btn-primary" startIcon={<CreateOutlinedIcon/>} onClick={(e) => createBoard(e)}> 글 작성</Button>
+            </Box>
+            <Box className ="table" style={{ padding: "0 12px" }}>
+                <Table className="table table-striped table-bordered">
                     <colgroup>
-                        <col width="5%" />
+                        <col width="*" />
                         <col width="*" />
                         <col width="50%" />
                         <col width="*" />
@@ -160,44 +164,48 @@ const ListBoardComponent = () => {
                         <col width="*" />
                         <col width="*" />
                     </colgroup>
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>카테고리 </th>
-                            <th>제목</th>
-                            <th>작성자 </th>
-                            <th>작성일 </th>
-                            <th>조회수</th>
-                            <th>좋아요수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="center">번호</TableCell>
+                            <TableCell align="center">카테고리 </TableCell>
+                            <TableCell align="center">제목</TableCell>
+                            <TableCell align="center">작성자 </TableCell>
+                            <TableCell align="center">작성일 </TableCell>
+                            <TableCell align="center">조회수</TableCell>
+                            <TableCell align="center">좋아요수</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                         {
                             boards.map(
                                 board => 
-                                <tr key = {board.idx}>
-                                    <td> {board.idx} </td>
-                                    <td> {getBoardCategory(board.category)} </td>
-                                        <td>
+                                <TableRow key = {board.idx}>
+                                    <TableCell align="center"> {board.idx} </TableCell>
+                                    <TableCell align="center"> {getBoardCategory(board.category)} </TableCell>
+                                        <TableCell>
                                             <a href="#" value={board.idx} onClick={(e) => readBoard(e)}>
                                                 {board.title}
                                             </a>
-                                        </td>
-                                    <td> {board.id} </td>
-                                    <td> {getBoardCreateDay(board.createtDay)} </td>
-                                    <td> {board.viewCnt} </td>
-                                    <td> {board.likes} </td>
-                                </tr>
+                                        </TableCell>
+                                    <TableCell align="center"> {board.id} </TableCell>
+                                    <TableCell align="center"> {getBoardCreateDay(board.createtDay)} </TableCell>
+                                    <TableCell align="center"> {board.viewCnt} </TableCell>
+                                    <TableCell align="center"> {board.likes} </TableCell>
+                                </TableRow>
                             )
                         }
-                    </tbody>
-                </table>
-            </div>
-            <div className={classes.root}>
-                <Typography>Page: {pNum}</Typography>
-                <Pagination count={paging.pageNumCountTotal} page={pNum} onChange={handleChange} value={pNum} name="pNum"/>
-            </div>
-        </div>
+                    </TableBody>
+                </Table>
+            </Box>
+            <Box className={classes.root}>
+                <br/>
+                <Typography>Page: {pNum}
+                    <br/>
+                    <PaginationStyle count={paging.pageNumCountTotal} page={pNum} onChange={handleChange} value={pNum} name="pNum"
+                        boundaryCount={1} siblingCount={3}/>
+                </Typography>
+            </Box>
+        </Box>
     );
 }
 

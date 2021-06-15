@@ -14,6 +14,7 @@ import TimeManagement from 'src/pages/TimeManagement';
 import Calendar from 'src/pages/Calendar';
 import ReadBoardComponent from './components/board/ReadBoardComponent';
 import CreateBoardComponent from './components/board/CreateBoardComponent';
+// import ListBoardComponent from './components/board/ListBoardComponent';
 
 const routes = [
   {
