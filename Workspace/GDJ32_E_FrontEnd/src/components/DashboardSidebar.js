@@ -19,7 +19,7 @@ import {
   // Settings as SettingsIcon,
   // ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
+  UserPlus as UserPlusIcon
   // Users as UsersIcon
 } from 'react-feather';
 // import { BiClipboard, BiChalkboard, BiCalendar, BiBriefcaseAlt } from 'react-icons/bi';
@@ -28,15 +28,14 @@ import InputIcon from '@material-ui/icons/Input';
 import Cookies from 'universal-cookie';
 import NavItem from './NavItem';
 
-
 const cookies = new Cookies();
 
 const islogin = {
   href: '',
   title: ''
-}
+};
 
-if (cookies.get("accessToken") == null) {
+if (cookies.get('accessToken') == null) {
   islogin.href = '/login';
   islogin.title = '로그인';
 } else {
@@ -44,13 +43,11 @@ if (cookies.get("accessToken") == null) {
   islogin.title = '로그아웃';
 }
 
-
 const user = {
   href: '/app/mypage',
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
-  name: "aaa"
-
+  name: 'aaa'
 };
 
 const items = [
@@ -80,16 +77,6 @@ const items = [
     icon: BiCalendar,
     title: '캘린더'
   },
-  // {
-  //   href: '/app/products',
-  //   icon: BiClipboard,
-  //   title: '전자결재'
-  // },
-  // {
-  //   href: '/app/settings',
-  //   icon: SettingsIcon,
-  //   title: 'Settings'
-  // },
   {
     href: islogin.href,
     icon: LockIcon,
@@ -99,12 +86,7 @@ const items = [
     href: '/register',
     icon: UserPlusIcon,
     title: '회원가입'
-  },
-  // {
-  //   href: '/404',
-  //   icon: AlertCircleIcon,
-  //   title: 'Error'
-  // }
+  }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
@@ -154,10 +136,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         >
           {user.name}
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
+        <Typography color="textSecondary" variant="body2">
           {user.jobTitle}
         </Typography>
         <Button
@@ -167,7 +146,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             height: 40,
             m: 2,
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'column'
           }}
           color="primary"
           component="a"
@@ -203,16 +182,15 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           ))}
         </List>
       </Box>
-      {/* <Box sx={{ flexGrow: 1 }} />  */}
       <Box
         sx={{
           backgroundColor: '#fff',
           cursor: 'pointer',
           p: 2,
-          pt: 20,
+          pt: 20
         }}
       >
-        <IconButton >
+        <IconButton>
           <InputIcon />
         </IconButton>
       </Box>
@@ -262,7 +240,7 @@ DashboardSidebar.propTypes = {
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => { },
+  onMobileClose: () => {},
   openMobile: false
 };
 

@@ -1,4 +1,4 @@
-import { Link as RouterLink,  useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // import { useHistory } from "react-router";
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -20,32 +20,32 @@ import ApiService from '../service/ApiService';
 // const history = useHistory();
 
 const initialValues = {
-    id: '',
-    password: '',
-    name: '',
-    zipcode: '',
-    address: '',
-    address_detail: '',
-    phone: '',
-    email: '',
-    birthday: '',
-    policy: false
+  id: '',
+  password: '',
+  name: '',
+  zipcode: '',
+  address: '',
+  address_detail: '',
+  phone: '',
+  email: '',
+  birthday: '',
+  policy: false
 };
-  
+
 const Register = () => {
 
   const navigate = useNavigate();
 
   function saveUser(user) {
     ApiService.addUser(user)
-    .then(res => {
-      console.log(res.statusText);
-      // history.push('/');
-      navigate('/app/home', { replace: true });
-    }) 
-    .catch(err => {
-      console.log("saveUser() 에러", err);
-    });
+      .then(res => {
+        console.log(res.statusText);
+        // history.push('/');
+        navigate('/app/home', { replace: true });
+      })
+      .catch(err => {
+        console.log("saveUser() 에러", err);
+      });
   }
   return (
     <>
@@ -202,7 +202,7 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
-                  InputLabelProps={{shrink : true}}
+                  InputLabelProps={{ shrink: true }}
                   error={Boolean(touched.birthday && errors.birthday)}
                   fullWidth
                   helperText={touched.birthday && errors.birthday}

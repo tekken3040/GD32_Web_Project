@@ -1,4 +1,16 @@
-import { Button } from '@material-ui/core';
+import {
+    Box,
+    Button,
+    Card,
+    // Container,
+    Grid,
+    // Link,
+    TextField,
+    Divider,
+    CardContent,
+    CardHeader,
+    Typography
+} from '@material-ui/core';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
@@ -27,10 +39,10 @@ const ReadBoardComponent = () => {
         if (categoryNo === 0) {
             category = "공지사항";
 
-        } else if (categoryNo === 1 ) {
+        } else if (categoryNo === 1) {
             category = "자유게시판";
 
-        } else if (categoryNo === 2 ) {
+        } else if (categoryNo === 2) {
             category = "자료실";
 
         } else {
@@ -38,9 +50,11 @@ const ReadBoardComponent = () => {
         }
 
         return (
-            <div className = "row">
-                <h3> 카테고리 : </h3> {category}
-            </div>
+            <Typography
+                variant="h4"
+                gutterBottom>
+                카테고리 : {category}
+            </Typography>
         )
     }
 
@@ -57,7 +71,7 @@ const ReadBoardComponent = () => {
 
     // # 4. 글 목록으로 이동하는 함수를 정의 
     const goToList = () => {
-        history('/app/board/1', {replace: true});
+        history('/app/board/1', { replace: true });
     }
 
     const goToUpdate = (event) => {
@@ -73,9 +87,9 @@ const ReadBoardComponent = () => {
     }
 
     const deleteView = async function () {
-        if(window.confirm("정말로 글을 삭제하시겠습니까?")){
+        if (window.confirm("정말로 글을 삭제하시겠습니까?")) {
             // BoardService.deleteBoard(this.state.index).then( res => {
-                BoardService.deleteBoard(pIdx).then( res => {
+            BoardService.deleteBoard(pIdx).then(res => {
                 console.log("delete result => ", JSON.stringify(res));
                 if (res.status === 200) {
                     history('/app/board/1');
@@ -86,33 +100,94 @@ const ReadBoardComponent = () => {
         }
     }
 
+    const textFieldStyle = {
+        marginTop: 8,
+        width: '80%',
+        height: "550px  "
+    }
+
+
+
     return (
-        <div>
-            <div className = "card col-md-6 offset-md-3">
-                <h3 className ="text-center"> 상세페이지</h3>
-                <div className = "card-body">
-                        {returnBoardType(pBoard.category)}      
-                        <div className = "row">      
-                            <h3> 제목 </h3> : {pBoard.title}
-                        </div>
-                        <div className = "row">
-                            <h3> 내용 </h3> : <br/>
-                            <textarea value={pBoard.content} readOnly/>
-                            {/* {this.state.board.createtDay} */}
-                        </div >
-                        {/* <div className = "row">
-                            <label>   </label>: 
-                            {this.state.board.memberNo}
-                        </div> */}
-                        {returnDate(pBoard.createdTime, pBoard.updatedTime) }
-                       
-                        <Button className="btn btn-primary" onClick={goToList} style={{marginLeft:"10px"}}>글 목록으로 이동</Button>
-                        <Button className="btn btn-info" onClick={goToUpdate} style={{marginLeft:"10px"}}>글 수정</Button>
-                      
-                        <Button className="btn btn-danger" onClick={() => deleteView()} style={{marginLeft:"10px"}}>글 삭제</Button>
-                </div>
-            </div>
-        </div>
+        <Box>
+            <Card>
+                <CardHeader
+                    variant="h2"
+                    subheader="게시글 보기"
+                    title="게시글"
+                />
+                <Divider />
+                <CardContent>
+                    <Grid >
+                        <Typography
+                            variant="h3"
+                            marginBottom="25px"
+                        >
+                            제목 : {pBoard.title}
+                        </Typography>
+                    </Grid>
+                    <Grid
+                        marginBottom="50px">
+                        <Typography
+                            marginBottom="25px"
+                            marginRight="350px"
+                            align="right">
+                            {returnBoardType(pBoard.category)}
+                        </Typography>
+                        <TextField
+                            defaultValue={pBoard.content}
+                            label="내용"
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                            size="medium"
+                            margin="normal"
+                            multiline="true"
+                            rows="20"
+                            rowsMax="20"
+                            style={textFieldStyle}
+                        />
+                    </Grid>
+                    <Grid
+                        marginRight="300px"
+                        marginBottom="50px">
+                        <Typography
+                            align="right">
+                            {returnDate(pBoard.createdTime, pBoard.updatedTime)}
+                        </Typography>
+
+                    </Grid>
+                    <Grid
+                        marginRight="300px"
+                        align="right">
+                        <Button
+                            onClick={goToList}
+                            style={{ marginLeft: "10px" }}
+                            variant="contained"
+                            color="primary"
+                        >
+                            글 목록으로 이동
+                        </Button>
+                        <Button
+                            onClick={goToUpdate}
+                            style={{ marginLeft: "10px" }}
+                            variant="contained"
+                            color="primary"
+                        >
+                            글 수정
+                        </Button>
+                        <Button
+                            onClick={() => deleteView()}
+                            style={{ marginLeft: "10px" }}
+                            variant="contained"
+                            color="primary"
+                        >
+                            글 삭제
+                        </Button>
+                    </Grid>
+                </CardContent>
+            </Card >
+        </Box>
     );
 }
 

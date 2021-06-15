@@ -27,7 +27,7 @@ const Home = () => (
       style={styles.backContainer}
     >
       <Container maxWidth={false}>
-        <MyRoom/>
+        <MyRoom />
       </Container>
     </Box>
   </>

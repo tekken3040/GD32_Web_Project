@@ -20,11 +20,11 @@ class ApiService {
         console.log("addUser In")
         return axios.post(USER_API_BASE_URL, user)
     }
-/*
-    editUser(user) {
-        return axios.put(USER_API_BASE_URL + '/' + user.id, user);
-    }
-    */
+    /*
+        editUser(user) {
+            return axios.put(USER_API_BASE_URL + '/' + user.id, user);
+        }
+        */
 }
 
 export default new ApiService();

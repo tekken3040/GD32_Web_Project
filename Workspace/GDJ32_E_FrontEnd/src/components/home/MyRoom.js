@@ -1,6 +1,6 @@
-import {
-    Box,
-} from '@material-ui/core';
+// import {
+//     Box,
+// } from '@material-ui/core';
 
 const Materialroom = () => {
 
@@ -8,7 +8,7 @@ const Materialroom = () => {
 
   return (
     <>
-      <Box/>
+      <div/>    
     </>
   );
 };
