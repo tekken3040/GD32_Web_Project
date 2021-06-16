@@ -103,10 +103,14 @@ const items = [
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
   const [disabled, setDisabled] = useState(false);
+  const [display, setdisplay] = useState("flex");
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
+    }
+    if (cookies.get("accessToken") == null) {
+      setdisplay("none")
     }
   }, [location.pathname]);
 
@@ -120,6 +124,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
     alert("퇴근 처리 되었습니다.")
   }
 
+  // if (cookies.get("accessToken") === null) {
+  //   setdisplay("none")
+  // } else {
+  //   setdisplay("flex")
+  // }
+
   const content = (
     <Box
       sx={{
@@ -132,11 +142,10 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       <Box
         sx={{
           alignItems: 'center',
-          display: 'flex',
+          display: { display },
           flexDirection: 'column',
           p: 2,
-          m: 1,
-
+          m: 1
         }}
       >
         <Avatar

@@ -99,7 +99,7 @@ public class AuthController {
 		UserInfo member = memberRepository.findById(loginRequest.getUsername());
 		log.info("jwt :" + jwt);
 		log.info("username : " + loginRequest.getUsername());
-		member.setToken(jwt);
+		member.setAccessToken(jwt);
 		log.info(member.toString());
 		
 		return ResponseEntity.ok(member);
