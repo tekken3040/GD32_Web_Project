@@ -11,13 +11,13 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     List<MemberDTO> userList();
 
-    MemberDTO fetchUserByID(int id);
+    MemberDTO fetchUserByID(String id);
 
     void updateUser(UserInfo user);
 
     void insertUser(MemberDTO user);
 
-    void insertUserDetail(int member_index);
+    void insertUserDetail(MemberDTO member_index);
 
     int selectUserByID(String id);
 

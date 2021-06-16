@@ -40,25 +40,29 @@ const PaginationStyle = withStyles({
 const ListBoardComponent = () => {
   const history = useNavigate();
   const { state } = useLocation();
-  const [pNum, setNum] = useState(() => {
-    if (state != null) return state.pIdx;
-    return 1;
-  });
+  let pNum = 1;
+  const [pageNum, setNum] = useState(1);
+  // const [pNum, setNum] = useState(() => {
+  //   if (state != null) return state.pIdx;
+  //   return 1;
+  // });
   const [paging, setPage] = useState({});
   const [boards, setBoards] = useState([]);
   const classes = useStyles();
 
   // 페이지가 로딩될 때, 글 목록만 가져오던 것을 , 페이징 객체도 같이 가져오도록 수정
   useEffect(() => {
+    if (state !== null) pNum = state.pIdx;
     // getBoard호출시 페이지 번호 외에 한페이지에 표시할 게시물 수와 총 페이지 수량을 적어줘야함
     BoardService.getBoards(pNum, 10, 10).then((res) => {
       setNum(res.data.pagingData.currentPageNum);
+      pNum = res.data.pagingData.currentPageNum;
       setPage(res.data.pagingData);
       setBoards(res.data.list);
       console.log(res.data.list);
       console.log('pNum : ', pNum);
     });
-  }, [pNum]);
+  }, [state]);
 
   // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수
   // const listBoard = (pageNum) => {
@@ -73,7 +77,8 @@ const ListBoardComponent = () => {
   // }
 
   const handleChange = (event, value) => {
-    setNum(value);
+    // setNum(value);
+    pNum = value;
     console.log('value : ', value);
     console.log(paging);
     history(`/app/board/${value}`, {
@@ -217,13 +222,13 @@ const ListBoardComponent = () => {
       </Box>
       <Box className={classes.root}>
         <Typography>
-          Page: {pNum}
+          Page: {pageNum}
           <PaginationStyle
             count={paging.pageNumCountTotal}
-            page={pNum}
+            page={pageNum}
             onChange={handleChange}
-            value={pNum}
-            name="pNum"
+            value={pageNum}
+            name="pageNum"
           />
         </Typography>
       </Box>
