@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -54,7 +54,6 @@ if (userid === null) {
   userImage.image = `/static/images/avatars/${cookies.get("id")}.png`
 }
 
-
 const user = {
   href: '/app/mypage',
   avatar: userImage.image,
@@ -103,12 +102,23 @@ const items = [
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
   }, [location.pathname]);
+
+  const btnActive = () => {
+    setDisabled(true);
+    alert("출근 처리 되었습니다.")
+  }
+
+  const btnDisabled = () => {
+    setDisabled(false);
+    alert("퇴근 처리 되었습니다.")
+  }
 
   const content = (
     <Box
@@ -153,6 +163,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           {user.jobTitle}
         </Typography>
         <Button
+          className="onWork"
+          id="onWork"
           sx={{
             cursor: 'pointer',
             width: 150,
@@ -163,12 +175,16 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           }}
           color="primary"
           component="a"
-          href="https://react-material-kit.devias.io"
+          disabled={disabled}
+          // href="https://react-material-kit.devias.io"
           variant="contained"
+          onClick={btnActive}
         >
           출근
         </Button>
         <Button
+          className="offWork"
+          id="offWork"
           sx={{
             cursor: 'pointer',
             width: 150,
@@ -176,12 +192,14 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           }}
           color="primary"
           component="a"
-          href="https://react-material-kit.devias.io"
+          disabled={!disabled}
+          // href="https://react-material-kit.devias.io"
           variant="contained"
+          onClick={btnDisabled}
         >
           퇴근
         </Button>
-      </Box>
+      </Box >
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
@@ -207,7 +225,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           <InputIcon />
         </IconButton>
       </Box>
-    </Box>
+    </Box >
   );
 
   return (

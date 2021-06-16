@@ -48,4 +48,17 @@ public class UserInfo {
 
     @Transient
     private String token;
+    
+    public UserInfo(String id, String name, String zipcode, 
+    				String address, String address_detail, 
+    				String phone, String email, String birthday) {
+    	this.id = id;
+    	this.name = name;
+    	this.zipcode = zipcode;
+    	this.address = address;
+    	this.address_detail = address_detail;
+    	this.phone = phone;
+    	this.email = email;
+    	this.birthday = birthday;
+    }
 }

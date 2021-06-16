@@ -75,6 +75,11 @@ class ApiService {
         // return axios.get(`${USER_API_BASE_URL}/demo/auth`, AxiosRequestConfig, userData);
         return axios.post(`${USER_API_BASE_URL}/logout`, userData, AxiosRequestConfig);
     }
+
+    UpdateUser = (user) => {
+        console.log("UpdateUser");
+        return axios.post(`${USER_API_BASE_URL}/users/updateUser`, user);
+    }
 }
 
 export default new ApiService();

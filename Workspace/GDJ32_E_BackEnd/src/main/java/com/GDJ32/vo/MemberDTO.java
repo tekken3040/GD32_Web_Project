@@ -28,8 +28,9 @@ import lombok.NoArgsConstructor;
 public class MemberDTO {
     //#region Values
     @Id
+    @Column(name = "member_index")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer index;
+    private Integer member_index;
 	
 	@Column(name = "id")
 	private String id;
@@ -67,14 +68,14 @@ public class MemberDTO {
      * @return Integer return the index
      */
     public Integer getIndex() {
-        return index;
+        return member_index;
     }
 
     /**
      * @param index the index to set
      */
     public void setIndex(Integer index) {
-        this.index = index;
+        this.member_index = index;
     }
 
     /**
