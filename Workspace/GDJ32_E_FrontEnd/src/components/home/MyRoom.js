@@ -19,7 +19,7 @@ const Materialroom = () => {
           }}
           color="primary"
           component="a"
-          href="https://react-material-kit.devias.io"
+          href="http://localhost:3000/register"
           variant="contained"
         >
           회원가입

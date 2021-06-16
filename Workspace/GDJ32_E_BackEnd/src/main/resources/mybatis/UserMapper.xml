@@ -5,8 +5,8 @@
         INSERT INTO gdj_member(id, password, name, zipcode, address, address_detail, phone, email, birthday)
         VALUES(#{id}, #{password}, #{name}, #{zipcode}, #{address}, #{address_detail}, #{phone}, #{email}, #{birthday})
     </insert>
-    <insert id="insertUserDetail" parameterType="int">
-        INSERT INTO gdj_member_detail (member_index) VALUES (#{member_index})
+    <insert id="insertUserDetail" parameterType="com.GDJ32.vo.MemberDTO">
+        INSERT INTO gdj_member_detail (member_index, id) VALUES (#{member_index}, #{id})
     </insert>
     <select id="selectUserByID" resultType="int" parameterType="string">
         SELECT member_index FROM gdj_member WHERE id=#{id}
@@ -15,7 +15,7 @@
         SELECT * FROM gdj_member
         ORDER BY id
     </select>
-    <select id="fetchUserByID" resultType="com.GDJ32.vo.MemberDTO" parameterType="int">
+    <select id="fetchUserByID" resultType="com.GDJ32.vo.MemberDTO" parameterType="string">
         SELECT * FROM gdj_member
         WHERE id = #{id}
     </select>

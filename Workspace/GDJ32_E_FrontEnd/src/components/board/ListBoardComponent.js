@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate /* , useLocation */ } from 'react-router-dom';
 import { Button, Box } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -39,11 +39,12 @@ const PaginationStyle = withStyles({
 
 const ListBoardComponent = () => {
   const history = useNavigate();
-  const { state } = useLocation();
-  const [pNum, setNum] = useState(() => {
-    if (state != null) return state.pIdx;
-    return 1;
-  });
+  // const { state } = useLocation();
+  let pNum = 1;
+  // const [pNum, setNum] = useState(() => {
+  //   if (state != null) return state.pIdx;
+  //   return 1;
+  // });
   const [paging, setPage] = useState({});
   const [boards, setBoards] = useState([]);
   const classes = useStyles();
@@ -52,7 +53,8 @@ const ListBoardComponent = () => {
   useEffect(() => {
     // getBoard호출시 페이지 번호 외에 한페이지에 표시할 게시물 수와 총 페이지 수량을 적어줘야함
     BoardService.getBoards(pNum, 10, 10).then((res) => {
-      setNum(res.data.pagingData.currentPageNum);
+      // setNum(res.data.pagingData.currentPageNum);
+      pNum = res.data.pagingData.currentPageNum;
       setPage(res.data.pagingData);
       setBoards(res.data.list);
       console.log(res.data.list);
@@ -73,7 +75,8 @@ const ListBoardComponent = () => {
   // }
 
   const handleChange = (event, value) => {
-    setNum(value);
+    // setNum(value);
+    pNum = value;
     console.log('value : ', value);
     console.log(paging);
     history(`/app/board/${value}`, {

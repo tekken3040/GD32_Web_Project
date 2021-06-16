@@ -39,7 +39,7 @@ public class MemberDTOForm {
 
     public MemberDTO toEntity() {
         return MemberDTO.builder()
-        .index(index)
+        .member_index(index)
         .id(id)
         .password(new BCryptPasswordEncoder().encode(password))
         .name(name)

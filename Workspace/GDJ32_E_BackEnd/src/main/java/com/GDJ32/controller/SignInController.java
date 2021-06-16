@@ -44,11 +44,12 @@ public class SignInController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insertUser(user);
         System.out.println("유저 저장 성공");
-        userMapper.insertUserDetail(userMapper.selectUserByID(user.getId()));
+        // userMapper.insertUserDetail(userMapper.selectUserByID(user.getId()));
+        userMapper.insertUserDetail(userMapper.fetchUserByID(user.getId()));
     }
 
     @GetMapping("/{id}")
-    public MemberDTO fetchUserByID(@PathVariable int id) {
+    public MemberDTO fetchUserByID(@PathVariable String id) {
         System.out.println(userMapper.fetchUserByID(id));
         MemberDTO fetchUser = userMapper.fetchUserByID(id);
         return fetchUser;
