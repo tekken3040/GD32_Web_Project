@@ -16,6 +16,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import BoardService from '../../service/BoardService';
 
+
 const CreateBoardComponent = () => {
     const history = useNavigate();
     const [idx, setIdx] = useState();
@@ -113,9 +114,17 @@ const CreateBoardComponent = () => {
             <Divider />
             <CardContent>
                 <form>
-                    <FormControl>
-                        <InputLabel id="category-Type">
-                            Type
+                    <Grid
+                        marginTop="10px"
+                        marginBottom="25px">
+                        <Typography
+                            variant="h4"
+                            marginBottom="10px"
+                        >
+                            카테고리
+                        </Typography>
+                        <FormControl variant="outlined">
+                            <InputLabel htmlFor="outlined-age-native-simple" id="category-Type" />
                             <Select
                                 placeholder="category"
                                 name="category"
@@ -128,13 +137,13 @@ const CreateBoardComponent = () => {
                                 <MenuItem value={3}>자료실</MenuItem>
                                 <MenuItem value={4}>사고팝니다</MenuItem>
                             </Select>
-                        </InputLabel>
-                    </FormControl>
+                        </FormControl>
+                    </Grid>
                     <Grid
                         marginTop="10px"
                         marginBottom="25px">
                         <Typography
-                            variant="h3"
+                            variant="h4"
                             marginBottom="10px"
                         >
                             제목
@@ -155,7 +164,7 @@ const CreateBoardComponent = () => {
                     </Grid>
                     <Grid>
                         <Typography
-                            variant="h3"
+                            variant="h4"
                             marginBottom="10px"
                         >
                             내용
