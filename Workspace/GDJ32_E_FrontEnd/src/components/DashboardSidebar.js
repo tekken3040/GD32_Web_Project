@@ -41,13 +41,25 @@ if (cookies.get('accessToken') == null) {
 } else {
   islogin.href = '/logout';
   islogin.title = '로그아웃';
+
 }
+const userid = cookies.get("id");
+const userImage = {
+  image: '/static/images/avatars/nouser.png'
+}
+
+if (userid === null) {
+  userImage.image = '/static/images/avatars/nouser.png'
+} else {
+  userImage.image = `/static/images/avatars/${cookies.get("id")}.png`
+}
+
 
 const user = {
   href: '/app/mypage',
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'aaa'
+  avatar: userImage.image,
+  jobTitle: '',
+  name: decodeURI(cookies.get("name"))
 };
 
 const items = [
@@ -113,7 +125,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           display: 'flex',
           flexDirection: 'column',
           p: 2,
-          m: 1
+          m: 1,
+
         }}
       >
         <Avatar
@@ -240,7 +253,7 @@ DashboardSidebar.propTypes = {
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 

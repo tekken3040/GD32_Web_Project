@@ -41,8 +41,21 @@ const Login = () => {
         cookies.set("tokenType", res.data.tokenType)
         console.log(res.data)
         console.log(cookies.get("accessToken"));
-        // window.location.replace("/")
+        console.log(res.data.name)
+        cookies.set("memberIndex", encodeURIComponent(res.data.memberIndex));
+        cookies.set("id", encodeURIComponent(res.data.id));
+        cookies.set("name", encodeURIComponent(res.data.name));
+        cookies.set("phone", encodeURIComponent(res.data.phone));
+        cookies.set("zipcode", encodeURIComponent(res.data.zipcode));
+        cookies.set("address", encodeURIComponent(res.data.address));
+        cookies.set("addressDetail", encodeURIComponent(res.data.address_detail));
+        cookies.set("birthday", encodeURIComponent(res.data.birthday));
+        cookies.set("email", (res.data.email), "UTF-8");
+        console.log((cookies.get("email")))
+
+        window.location.replace("/")
         // navigate('/', { replace: true });
+
       })
       .catch(err => {
         console.log("login err : ", err);

@@ -22,9 +22,6 @@ public class UserInfo {
 	@Column(name = "id")
 	private String id;
 	
-	@Column(name = "password")
-	private String password;
-	
 	@Column(name = "name")
 	private String name;
 	

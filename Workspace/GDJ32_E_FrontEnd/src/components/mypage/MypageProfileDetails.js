@@ -10,6 +10,9 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 // const states = [
 //   {
@@ -28,14 +31,14 @@ import {
 
 const MypageProfileDetails = (props) => {
   const [values, setValues] = useState({
-    id: 'aaaaa',
-    name: '홍길동',
-    zipcode: '0000',
-    address: '집주소',
-    addressDetail: '상세 주소',
-    phone: '000-0000-0000',
-    emailAddress: 'aaaa@aaaa.com',
-    birthDay: '2021-06-12'
+    id: decodeURI(cookies.get("id")),
+    name: decodeURI(cookies.get("name")),
+    zipcode: (cookies.get("zipcode")),
+    address: decodeURI(cookies.get("address")),
+    addressDetail: decodeURI(cookies.get("addressDetail")),
+    phone: cookies.get("phone"),
+    emailAddress: (cookies.get("email")),
+    birthDay: cookies.get("birthday")
   });
 
   const handleChange = (event) => {
@@ -81,7 +84,6 @@ const MypageProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
                 label="아이디"
                 name="id"
                 onChange={handleChange}
@@ -190,7 +192,7 @@ const MypageProfileDetails = (props) => {
               <TextField
                 InputLabelProps={{ shrink: true }}
                 fullWidth
-                label="birthDay"
+                label="생일"
                 name="birthDay"
                 onChange={handleChange}
                 required

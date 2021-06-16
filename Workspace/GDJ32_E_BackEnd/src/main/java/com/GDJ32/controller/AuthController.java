@@ -96,13 +96,14 @@ public class AuthController {
 		log.info("authentication : " + authentication);
 		
 		String jwt = tokenProvider.generateToken(authentication);
-		// UserInfo member = memberRepository.findById(loginRequest.getUsername());
+		UserInfo member = memberRepository.findById(loginRequest.getUsername());
 		log.info("jwt :" + jwt);
 		log.info("username : " + loginRequest.getUsername());
-		// member.setToken(jwt);
-		// log.info(member.toString());
-		// return ResponseEntity.ok(member);
-		return ResponseEntity.ok(jwt);
+		member.setToken(jwt);
+		log.info(member.toString());
+		
+		return ResponseEntity.ok(member);
+		// return ResponseEntity.ok(jwt);
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.POST)

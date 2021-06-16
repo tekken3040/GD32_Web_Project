@@ -9,13 +9,27 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+const userid = cookies.get("id");
+
+const userImage = {
+  image: '/static/images/avatars/nouser.png'
+}
+
+if (userid === null) {
+  userImage.image = '/static/images/avatars/nouser.png'
+} else {
+  userImage.image = `/static/images/avatars/${cookies.get("id")}.png`
+}
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
+  avatar: userImage.image,
   city: 'Los Angeles',
   country: 'USA',
   jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
+  name: decodeURI(cookies.get("name")),
   timezone: 'GTM-7'
 };
 
