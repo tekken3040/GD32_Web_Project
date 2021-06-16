@@ -11,6 +11,7 @@ import {
   TextField
 } from '@material-ui/core';
 import Cookies from 'universal-cookie';
+import ApiService from 'src/ApiService';
 
 const cookies = new Cookies();
 
@@ -48,19 +49,54 @@ const MypageProfileDetails = (props) => {
     });
   };
 
+  const userInfoUpdate = (event) => {
+    event.preventDefault();
+    const user = {
+      id: values.id,
+      name: values.name,
+      zipcode: values.zipcode,
+      address: values.address,
+      address_detail: values.addressDetail,
+      phone: values.phone,
+      email: values.emailAddress,
+      birthday: values.birthDay
+    }
+    console.log(user)
+    ApiService.UpdateUser(user)
+      .then(res => {
+        console.log("update 전송")
+        console.log(res.data)
+        cookies.set("memberIndex", encodeURIComponent(res.data.memberIndex));
+        cookies.set("id", encodeURIComponent(res.data.id));
+        cookies.set("name", encodeURIComponent(res.data.name));
+        cookies.set("phone", encodeURIComponent(res.data.phone));
+        cookies.set("zipcode", encodeURIComponent(res.data.zipcode));
+        cookies.set("address", encodeURIComponent(res.data.address));
+        cookies.set("addressDetail", encodeURIComponent(res.data.address_detail));
+        cookies.set("birthday", encodeURIComponent(res.data.birthday));
+        cookies.set("email", (res.data.email), "UTF-8");
+
+        alert("회원정보 수정을 성공했습니다.")
+        window.location.replace("/app/mypage")
+      })
+      .catch(err => {
+        console.log("update 전송실패")
+        console.log(err)
+      })
+  }
+
   return (
     <form
       autoComplete="off"
       validationschema={
         Yup.object().shape({
           id: Yup.string().max(255).required('ID is required'),
-          password: Yup.string().max(255).required('password is required'),
           name: Yup.string().max(255).required('Name is required'),
           zipcode: Yup.string().max(255).required('Zipode is required'),
           address: Yup.string().max(255).required('Address is required'),
-          address_detail: Yup.string().max(255).required('Address detail is required'),
+          addressDetail: Yup.string().max(255).required('Address detail is required'),
           phone: Yup.string().max(255).required('Phone is required'),
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          emailAddress: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           birthDay: Yup.date().default(() => new Date())
         })
       }
@@ -133,8 +169,9 @@ const MypageProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="기본 주소"
-                name="adress"
+                name="address"
                 onChange={handleChange}
+                required
                 value={values.address}
                 variant="outlined"
               />
@@ -214,6 +251,7 @@ const MypageProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={userInfoUpdate}
           >
             저장하기
           </Button>

@@ -23,9 +23,9 @@
         DELETE FROM gdj_member
         WHERE id = #{id}
     </delete>
-    <update id="updateUser" parameterType="com.GDJ32.vo.MemberDTO">
+    <update id="updateUser" parameterType="com.GDJ32.vo.UserInfo">
         UPDATE gdj_member
-        SET password = #{password}, name = #{name}, zipcode = #{zipcode}, address = #{address}, address_detail = #{address_detail}, phone = #{phone}, email = #{email}, birthday = #{birthday}
+        SET name = #{name}, zipcode = #{zipcode}, address = #{address}, address_detail = #{address_detail}, phone = #{phone}, email = #{email}, birthday = #{birthday}
         WHERE id = #{id}
     </update>
 </mapper>

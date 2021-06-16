@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.GDJ32.mapper.UserMapper;
 import com.GDJ32.vo.MemberDTO;
+import com.GDJ32.vo.UserInfo;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
@@ -54,12 +59,13 @@ public class SignInController {
         return fetchUser;
     }
 
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable int id, @RequestBody MemberDTO user) {
-        MemberDTO updateUser = user;
-        System.out.println("업데이트 유저 => " + updateUser);
+    @PostMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody UserInfo user) {
+    	log.info("업데이트 유저");
+    	UserInfo updateUser = user;
+        log.info("업데이트 유저 => " + updateUser.toString());
 
-        updateUser.setPassword(user.getPassword());
+        updateUser.setId(user.getId());
         updateUser.setName(user.getName());
         updateUser.setZipcode(user.getZipcode());
         updateUser.setAddress(user.getAddress());
@@ -69,6 +75,8 @@ public class SignInController {
         updateUser.setBirthday(user.getBirthday());
 
         userMapper.updateUser(updateUser);
+        
+        return ResponseEntity.ok(updateUser);
     }
 
     @DeleteMapping("/{id}")

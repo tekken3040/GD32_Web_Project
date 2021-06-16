@@ -53,6 +53,7 @@ const Login = () => {
         cookies.set("email", (res.data.email), "UTF-8");
         console.log((cookies.get("email")))
 
+        alert("로그인에 성공했습니다.")
         window.location.replace("/")
         // navigate('/', { replace: true });
 
@@ -85,8 +86,8 @@ const Login = () => {
           <Formik
             initialValues={{ initialValues }}
             validationSchema={Yup.object().shape({
-              id: Yup.string().max(255).required('아이디를 입력해 주세요'),
-              password: Yup.string().max(255).required('비밀번호를 입력해 주세요')
+              id: Yup.string().max(255).nullable("fasle").required('아이디를 입력해 주세요'),
+              password: Yup.string().nullable("fasle").max(255).required('비밀번호를 입력해 주세요')
             })}
             onSubmit={(values) => {
               // navigate('/app/dashboard', { replace: true });

@@ -3,6 +3,7 @@ package com.GDJ32.mapper;
 import java.util.List;
 
 import com.GDJ32.vo.MemberDTO;
+import com.GDJ32.vo.UserInfo;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ public interface UserMapper {
 
     MemberDTO fetchUserByID(int id);
 
-    void updateUser(MemberDTO user);
+    void updateUser(UserInfo user);
 
     void insertUser(MemberDTO user);
 

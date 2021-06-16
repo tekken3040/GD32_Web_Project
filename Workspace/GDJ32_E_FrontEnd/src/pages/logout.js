@@ -14,6 +14,7 @@ const logout = () => {
     cookies.remove("addressDetail");
     cookies.remove("birthday");
     cookies.remove("email");
+    alert("로그아웃에 성공했습니다.")
     window.location.replace("/")
 }
 
