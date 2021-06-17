@@ -19,10 +19,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 
   return (
-    <AppBar
-      elevation={0}
-      {...rest}
-    >
+    <AppBar elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
           <Logo />
@@ -42,16 +39,13 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
             <InputIcon />
           </IconButton> */}
         </Hidden>
-        <Hidden lgup>
+        <Hidden>
           <IconButton color="inherit">
             <BiCalendar />
           </IconButton>
         </Hidden>
-        <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
+        <Hidden>
+          <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>

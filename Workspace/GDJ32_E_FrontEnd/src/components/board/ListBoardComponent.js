@@ -54,14 +54,23 @@ const ListBoardComponent = () => {
   useEffect(() => {
     if (state !== null) pNum = state.pIdx;
     // getBoard호출시 페이지 번호 외에 한페이지에 표시할 게시물 수와 총 페이지 수량을 적어줘야함
-    BoardService.getBoards(pNum, 10, 10).then((res) => {
-      setNum(res.data.pagingData.currentPageNum);
-      pNum = res.data.pagingData.currentPageNum;
-      setPage(res.data.pagingData);
-      setBoards(res.data.list);
-      console.log(res.data.list);
-      console.log('pNum : ', pNum);
-    });
+    BoardService.getBoards(pNum, 10, 10)
+      .then((res) => {
+        console.log('Response : ', res);
+        return res;
+      })
+      .then((data) => {
+        if (data.status === 200) {
+          console.log('Data : ', data);
+          console.log('Data.data : ', data.data);
+          setNum(data.data.pagingData.currentPageNum);
+          pNum = data.data.pagingData.currentPageNum;
+          setPage(data.data.pagingData);
+          setBoards(data.data.list);
+          console.log(data.data.list);
+          console.log('pNum : ', pNum);
+        }
+      });
   }, [state]);
 
   // 지정한 페이지에 해당하는 글목록과 페이지 객체를 가져오는 함수

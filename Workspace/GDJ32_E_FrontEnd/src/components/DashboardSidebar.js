@@ -41,24 +41,23 @@ if (cookies.get('accessToken') == null) {
 } else {
   islogin.href = '/logout';
   islogin.title = '로그아웃';
-
 }
-const userid = cookies.get("id");
+const userid = cookies.get('id');
 const userImage = {
   image: '/static/images/avatars/nouser.png'
-}
+};
 
 if (userid === null) {
-  userImage.image = '/static/images/avatars/nouser.png'
+  userImage.image = '/static/images/avatars/nouser.png';
 } else {
-  userImage.image = `/static/images/avatars/${cookies.get("id")}.png`
+  userImage.image = `/static/images/avatars/${cookies.get('id')}.png`;
 }
 
 const user = {
   href: '/app/mypage',
   avatar: userImage.image,
   jobTitle: '',
-  name: decodeURI(cookies.get("name"))
+  name: decodeURI(cookies.get('name'))
 };
 
 const items = [
@@ -103,26 +102,26 @@ const items = [
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
   const [disabled, setDisabled] = useState(false);
-  const [display, setdisplay] = useState("flex");
+  const [display, setdisplay] = useState('flex');
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
-    if (cookies.get("accessToken") == null) {
-      setdisplay("none")
+    if (cookies.get('accessToken') == null) {
+      setdisplay('none');
     }
   }, [location.pathname]);
 
   const btnActive = () => {
     setDisabled(true);
-    alert("출근 처리 되었습니다.")
-  }
+    alert('출근 처리 되었습니다.');
+  };
 
   const btnDisabled = () => {
     setDisabled(false);
-    alert("퇴근 처리 되었습니다.")
-  }
+    alert('퇴근 처리 되었습니다.');
+  };
 
   // if (cookies.get("accessToken") === null) {
   //   setdisplay("none")
@@ -208,7 +207,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         >
           퇴근
         </Button>
-      </Box >
+      </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
@@ -234,12 +233,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           <InputIcon />
         </IconButton>
       </Box>
-    </Box >
+    </Box>
   );
 
   return (
     <>
-      <Hidden lgUp>
+      <Hidden>
         <Drawer
           anchor="left"
           onClose={onMobileClose}
@@ -280,7 +279,7 @@ DashboardSidebar.propTypes = {
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => { },
+  onMobileClose: () => {},
   openMobile: false
 };
 

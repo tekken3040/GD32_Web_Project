@@ -12,12 +12,18 @@
 	<groupId>com.GDJ32</groupId>
 	<artifactId>GDJ32_E_BackEnd</artifactId>
 	<version>1.0.0</version>
+	<packaging>jar</packaging>
 	<name>GDJ32_E_BackEnd</name>
 	<description>WebBackEnd</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>

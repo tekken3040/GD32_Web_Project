@@ -66,7 +66,7 @@ public class MemberViewTest {
         
     }
     
-    @Test  
+    // @Test  
     // @WithMockUser(username = "javajava", password = "@Abcd1234", roles = "USER") // ???
     public void mockTest() throws Exception {  
 
